@@ -1,0 +1,137 @@
+/* Login Page */
+
+.App {
+  /* text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center; */
+}
+
+.auth-form-container,
+.login-form {
+  display: flex;
+  padding-bottom: 5px;
+  flex-direction: column;
+  width: 50%;
+}
+
+.label-email {
+  width: 100%;
+  text-align: left;
+}
+
+.sign-in {
+  width: 100%;
+  padding-bottom: 15%;
+}
+
+.label-password {
+  width: 100%;
+  padding-top: 5%;
+  text-align: left;
+}
+
+.button-login {
+  padding-top: 10%;
+  width: 100%;
+  text-align: center;
+}
+
+.btnlogin {
+  background: #ff4d4d;
+  width: 100%;
+  border: thin;
+  padding: 3%;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.4 linear;
+}
+
+.btnlogin:hover {
+  background: #ff3333;
+}
+
+.leftside,
+.rightside {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftside {
+  background: white;
+}
+
+.rightside {
+  background: white;
+}
+
+.login-image {
+  background-image: url("./images/LoginImage.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+/* ------------------------------------------------------- */
+
+/* Nav bar */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  margin: 1rem;
+  text-align: center;
+}
+
+.nav {
+  background-color: #0e0e0e;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.site-title {
+  font-size: 2rem;
+  padding-left: 2rem;
+}
+
+.nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.nav li.active {
+  background-color: #555;
+  text-decoration: none;
+}
+
+.nav li:hover {
+  background-color: #777;
+  text-decoration: none;
+}

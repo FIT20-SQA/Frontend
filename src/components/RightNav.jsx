@@ -1,27 +1,67 @@
 import React from "react";
 import styled from "styled-components";
-import Burger from "./Burger";
 
-const Nav = styled.nav`
-  width: 100%;
-  height: 55px;
-  border-bottom: 2px solid #f1f1f1;
-  padding: 0 20px;
+const Ul = styled.nav`
+  list-style: none;
   display: flex;
-  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-items: center;
 
-  .logo {
-    padding: 15px 0;
+  li {
+    padding: 20px 15px;
+    color: white;
+  }
+
+  a {
+    color: white;
+  }
+
+  a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    flex-flow: column nowrap;
+    background-color: #0d2538;
+    position: fixed;
+    transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    padding-top: 3.5rem;
+
+    li {
+      color: #fff;
+    }
   }
 `;
 
-const Navbar = () => {
+const RightNav = ({ open }) => {
   return (
-    <Nav>
-      <div className="logo">Nav Bar</div>
-      <Burger />
-    </Nav>
+    <nav>
+      <Ul open={open}>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/Movie">Movie</a>
+        </li>
+        <li>
+          <a href="/FoodDrink">Food & Drink</a>
+        </li>
+        <li>
+          <a href="/Staff">Staff</a>
+        </li>
+        <li>
+          <a href="/Staff">
+            <div className="avatar"></div>
+          </a>
+        </li>
+      </Ul>
+    </nav>
   );
 };
 
-export default Navbar;
+export default RightNav;

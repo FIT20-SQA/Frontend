@@ -1,14 +1,10 @@
-import { Login } from "./components/Login";
-import { Navbar } from "./components/Navbar.jsx";
-
+import { Login } from "./pages/Login/index.jsx";
 import "./App.css";
 function App() {
-
   return (
     <div className="App">
-      <Login/>
+      <Login />
     </div>
   );
 }
-
 export default App;

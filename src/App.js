@@ -1,7 +1,9 @@
-import "./App.css";
-import { Login } from "./components/Login/index.jsx";
+import { Login } from "./components/Login";
+import { Navbar } from "./components/Navbar.jsx";
 
+import "./App.css";
 function App() {
+
   return (
     <div className="App">
       <Login/>

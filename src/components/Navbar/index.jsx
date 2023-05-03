@@ -1,12 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./style.scss";
-
+import { useState } from "react";
+import AppLogo from '../../images/logo.png'
 const Navbar = () => {
+  const [ pathname, setPathName ] = useState(window.location.pathname);
+  const location = useLocation()
+
+  useEffect(() => {
+    setPathName(location.pathname);
+  }, [location])
+
+  const checkIfHighlight = (path) => {
+    if (path === pathname) {
+      return true
+    }
+    return false
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <span className="navbar-brand">MovieMate</span>
+        <Link className="app-info" to='/'>
+          <img className='app-logo' src={AppLogo} alt="" />
+          <span className="app-name">MovieMate</span>
+
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,44 +40,42 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item ">
-              <Link to="/home" className="nav-link" activeClassName="active">
+              <Link to="/" 
+                className={checkIfHighlight('/') ? 'nav-link active' : 'nav-link'}
+                >
                 Home
               </Link>
             </li>
             <li className="nav-item">
               <Link
                 to="/movies"
-                className="nav-link"
-                activeClassName="active"
+                className={checkIfHighlight('/movies') ? 'nav-link active' : 'nav-link'}
               >
                 Movies
               </Link>
             </li>
             <li className="nav-item">
               <Link
-                to="/theatre"
-                className="nav-link"
-                activeClassName="active"
+                to="/theater-rooms"
+                className={checkIfHighlight('/theater-rooms') ? 'nav-link active' : 'nav-link'}
               >
-                Theatre
+                Theaters
               </Link>
             </li>
             <li className="nav-item">
               <Link
-                to="/food-and-drink"
-                className="nav-link"
-                activeClassName="active"
+                to="/foods-and-drinks"
+                className={checkIfHighlight('/foods-and-drinks') ? 'nav-link active' : 'nav-link'}
               >
-                Food & Drink
+                Foods & Drinks
               </Link>
             </li>
             <li className="nav-item">
               <Link
-                to="/staff"
-                className="nav-link"
-                activeClassName="active"
-              >
-                Staff
+                to="/staffs"
+                className={checkIfHighlight('/staffs') ? 'nav-link active' : 'nav-link'}
+                >
+                Staffs
               </Link>
             </li>
           </ul>

@@ -28,7 +28,7 @@ export default function () {
             <div className="btn-container">
                 <Button
                     imageLink={CinemaImage}
-                    text='Manage Cinema'
+                    text='Manage Movie'
                 />
                 <Button
                     imageLink={TheaterRoomImage}

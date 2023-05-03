@@ -1,6 +1,6 @@
 /* Login Page */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@400;500&family=Roboto&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
   --primary-color: #ADFF00;
   --primary-color-light: #DDFFBB;
@@ -11,7 +11,7 @@
 
 * {
   font-family: 'Roboto', sans-serif;
-
+  transition: all 0.2s linear;
 }
 .App {
   /* text-align: center;

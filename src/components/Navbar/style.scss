@@ -1,0 +1,34 @@
+.navbar {
+  border-bottom: 1px solid var(--color-gray);
+  margin-bottom: 30px;
+
+  .container-fluid {
+    max-width: 1600px;
+    margin: 0 auto;
+
+    .navbar-user {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    
+      
+      img {
+        margin-left: 20px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    
+    .nav-item  {
+      border-radius: 5px;
+      font-weight: bold;
+      margin: 0 2px;
+      &:hover {
+        background: var(--primary-color);
+      }
+    }
+  }
+  
+}
+

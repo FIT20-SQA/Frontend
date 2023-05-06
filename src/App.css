@@ -13,7 +13,7 @@
 
 * {
   font-family: 'Roboto', sans-serif;
-  transition: all 0.2s linear;
+  transition: all 0.1s ease-in-out;
 }
 .App {
   /* text-align: center;

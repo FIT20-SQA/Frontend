@@ -1,9 +1,9 @@
 import React from 'react';
 import './style.scss';
 
-export default function ({staffImage, staffName, staffTitle, createdAt, staffEmail, staffPhoneNumber}) {
+export default function ({staffImage, staffName, staffTitle, joinedDate, staffEmail, staffPhoneNumber, onClick}) {
     return (
-        <div className="Staff">
+        <div className="Staff" onClick={onClick}>
             <p className='unlocked'>Unlocked</p>
 
             <div className="staff-info">
@@ -12,7 +12,7 @@ export default function ({staffImage, staffName, staffTitle, createdAt, staffEma
                 <p className="staff-title">{staffTitle}</p>
             </div>
             <div className="staff-account">
-                <p className='created-date'><span className="bold">Created at:</span> {createdAt}</p>
+                <p className='joined-date'><span className="bold">Joined at:</span> {joinedDate}</p>
             </div>
             <div className="staff-contact">
                 <div className="staff-email">

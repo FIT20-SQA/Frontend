@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+
 import './style.scss';
 import FoodIcon from '../../../images/hamburger.png'
 import DrinkIcon from '../../../images/cola.png'
 import Item from '../../../components/FoodDrinkItem'
+
+import Popup from '../../../components/Popup';
+
+
 export default function () {
     const foods = [
         {
             itemImage: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8aGFtYnVyZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
             itemName: "The Juicy Stack",
-            itemDescription: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat, error!",
+            itemDescription: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat, error!Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam fugiat nostrum iure non reprehenderit hic, consequuntur ipsam odit quidem. Explicabo quo obcaecati quod, consequuntur maiores nam ad, maxime incidunt possimus temporibus dicta eaque iusto molestiae? Consequuntur eaque fugiat voluptatibus vel esse incidunt quod voluptates earum aliquam dolorem doloremque minus deleniti odio temporibus, ipsa ut, exercitationem doloribus, omnis nesciunt? Minima ipsa, autem repellendus nesciunt iusto quisquam itaque odit neque atque quod consequuntur sapiente fuga quasi aperiam veritatis dolorem iure aliquam non necessitatibus? Laborum harum repellendus veniam nulla vero quasi dolore earum voluptas dolor voluptate. Voluptate ex molestiae hic harum facere sequi.            ",
             itemPrice: 12.2
         },
         {
@@ -133,9 +138,35 @@ export default function () {
 
 
     const [itemType, setItemType] = useState('food')
+    const [currentItem, setCurrentItem] = useState(null)
+    const [showPopup, setShowPopup] = useState(false)
+
+
     const handleSwitchItemtype = (type) => {
         setItemType(type)
     }
+
+    const handleClick = (item) => {
+        setCurrentItem(item)
+        setShowPopup(true)
+    }
+
+    function ItemPopup() {
+        return (
+            <div className='item-popup'>
+                <div className="left">
+                    <img className='item-image' src={currentItem.itemImage} alt="" />
+                </div>
+                <div className="right">
+                    <p className="item-name">{currentItem.itemName}</p>
+                    <p className="item-description">{currentItem.itemDescription}</p>
+                    <p className="item-price">Price: ${currentItem.itemPrice}</p>
+
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className='FoodDrinkViewAllPage'>
             <div className="switch-btn-container">
@@ -153,32 +184,41 @@ export default function () {
 
                 {
                     itemType == 'food' ?
-                foods.map((food, index) => {
-                    return (
-                        <Item
-                            key={index}
-                            itemImage={food.itemImage}
-                            itemName={food.itemName}
-                            itemDescription={food.itemDescription}
-                            itemPrice={food.itemPrice}
-                        />
-                    )
-                })
-                :
-                drinks.map((drink, index) => {
-                    return (
-                        <Item
-                            key={index}
-                            itemImage={drink.itemImage}
-                            itemName={drink.itemName}
-                            itemDescription={drink.itemDescription}
-                            itemPrice={drink.itemPrice}
-                        />
-                    )
-                })
-            }
+                        foods.map((food, index) => {
+                            return (
+                                <Item
+                                    key={index}
+                                    itemImage={food.itemImage}
+                                    itemName={food.itemName}
+                                    itemDescription={food.itemDescription}
+                                    itemPrice={food.itemPrice}
+                                    onClick={() => handleClick(food)}
+                                />
+                            )
+                        })
+                        :
+                        drinks.map((drink, index) => {
+                            return (
+                                <Item
+                                    key={index}
+                                    itemImage={drink.itemImage}
+                                    itemName={drink.itemName}
+                                    itemDescription={drink.itemDescription}
+                                    itemPrice={drink.itemPrice}
+                                    onClick={() => handleClick(drink)}
+                                />
+                            )
+                        })
+                }
 
             </div>
+
+            <Popup
+                showPopup={showPopup}
+                setShowPopup={setShowPopup}
+                children={<ItemPopup />}
+
+            />
         </div>
     )
 }

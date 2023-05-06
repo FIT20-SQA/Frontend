@@ -80,9 +80,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div
+        <Link
           className="navbar-user"
-         
+          to='/profile'
         >
           <img
             alt=""
@@ -90,7 +90,7 @@ const Navbar = () => {
             className="rounded-circle"
           />
           <style></style>
-        </div>
+        </Link>
       </div>
     </nav>
   );

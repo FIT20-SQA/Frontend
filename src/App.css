@@ -1,6 +1,7 @@
 /* Login Page */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald&family=Roboto&family=Titillium+Web:wght@600&display=swap');
 :root {
+  /* generate a gradient color with red and blue? */
   --primary-color: #ADFF00;
   /* --primary-color: linear-gradient(255deg, #00FF87, #078C5D); */
   --primary-color-light: #DDFFBB;

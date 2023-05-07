@@ -1,0 +1,164 @@
+.OrderCreatePage {
+    .step-line {
+        margin: 0 0 20px 0;
+        // background: red;
+
+        .line {
+            height: 10px;
+            background: var(--color-gradient-green);
+            border-radius: 20px;
+        }
+
+        .step-item-container {
+            display: flex;
+            gap: 15%;
+            justify-content: center;
+            text-align: center;
+
+            .step-item {
+                transform: translate(0, -25px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .step-item-number {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: white;
+                    color: black;
+                    border: 2px solid rgba(0, 0, 0, 0.429);
+                    font-size: 20px;
+                    line-height: 50px;
+                    font-family: 'Oswald', sans-serif;
+                    font-weight: 500;
+                }
+
+                .step-item-text {
+                    font-family: 'Oswald', sans-serif;
+                    color: rgba(0, 0, 0, 0.438);
+                }
+            }
+
+            .step-item-active {
+                .step-item-number {
+
+                    background: var(--color-gradient-green);
+                    color: white;
+                    border: none
+                }
+
+                .step-item-text {
+                    font-weight: bold;
+                    color: black;
+                }
+            }
+
+        }
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 20px;
+
+        .btn {
+            i {
+                font-size: 20px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .btn-text {
+                font-family: 'Oswald', sans-serif;
+                font-weight: 500;
+
+                i {
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            &:hover {
+                i {
+                    transform: scale(1.1);
+                    background: var(--color-gradient-green);
+                    color: white;
+                }
+            }
+        }
+
+        .message {
+            display: grid;
+            place-items: center;
+
+            p {
+                font-size: 20px;
+                height: 50px;
+                line-height: 50px;
+                font-family: 'Oswald', sans-serif;
+                font-weight: 500;
+            }
+
+        }
+
+    }
+
+    .step-1 {
+        .movie-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 30px;
+            // background: red;
+            place-items: center;
+            padding: 30px;
+        }
+    }
+
+    .step-2 {
+
+        .ShowtimeList {
+            padding: 20px 30px;
+
+
+            .showtime-list-text {
+                font-family: 'Oswald', sans-serif;
+                font-weight: 500;
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+
+            .showtime-container {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+        
+        }
+
+        .SpotList {
+            padding: 20px 30px;
+
+            .spot-list-text {
+                font-family: 'Oswald', sans-serif;
+                font-weight: 500;
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
+
+            .spot-container {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            
+        }
+    }
+}

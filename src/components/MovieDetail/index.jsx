@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.scss';
-import MovieDetail from '../../../components/MovieDetail';
-export default function () {
+
+export default function ({displayLargePoster}) {
+    const style = displayLargePoster ? '' : 'display-small-poster' // because this component is used in two places, we need to be able to control the size of the poster
     const movie = {
         title: 'The Avengers',
         posterLink: 'https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg',
@@ -21,8 +22,39 @@ export default function () {
         return `${hours}h ${minutes}m`
     }
     return (
-        <MovieDetail 
-            displayLargePoster={true}
-        />
+        <div className={`MovieDetailPage  ${style}`}>
+            <div className="heading">
+                <div className="row-1">
+                    <p className="title">{movie.title}</p>
+                </div>
+                <div className="row-2">
+                    <p className="release-date">{movie.releaseDate}</p>
+                    <p className="duration">{formatDuration(movie.duration)}</p>
+                    <p className="country">{movie.country}</p>
+                </div>
+            </div>
+
+
+            <div className='movie-info'>
+                <div className="poster">
+                    <img src={movie.posterLink} alt="" />
+                </div>
+                <div className="info">
+                    <div className="genre-container">
+                        {movie.genres.map(genre => <p className="genre">{genre}</p>)}
+                    </div>
+                    <p className="description">{movie.description}</p>
+                    <h1 className='bold'>Actors: </h1>
+                    <div className="actor-container">
+                        {movie.actors.map(character => <p className="actor">{character}</p>)}
+                    </div>
+                    <h1 className='bold'>Director: </h1>
+                    <div className="director-container">
+                        {movie.director.map(director => <p className="director">{director}</p>)}
+                    </div>
+                </div>
+            </div>
+
+        </div>
     )
 }

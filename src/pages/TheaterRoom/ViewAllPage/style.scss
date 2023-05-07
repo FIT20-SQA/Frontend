@@ -6,7 +6,6 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    animation: fidein 0.1s ease-in-out;
 
     img {
         border-radius: 10px;
@@ -163,15 +162,6 @@
 }
 
 
-@keyframes fidein {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
 
 @media (max-width: 1400px) {
 

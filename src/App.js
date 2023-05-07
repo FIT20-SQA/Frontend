@@ -1,6 +1,7 @@
 import { Login } from "./pages/Login";
 import Homapage from "./pages/Homepage";
 import MovieViewAllPage from './pages/Movie/ViewAllPage'
+import MovieViewDetailPage from './pages/Movie/ViewDetails'
 import TheaterRoomViewAllPage from './pages/TheaterRoom/ViewAllPage'
 import FoodDrinkViewAllPage from './pages/FoodDrink/ViewAllPage'
 import StaffViewAllPage from './pages/Staff/ViewAllPage'
@@ -8,7 +9,8 @@ import UserProfilePage from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom"
 import "./App.css";
-// create a context to store information about user including: name, avatar and role?
+//TODO: create a context to store information about user including: name, avatar and role?
+//TODO: refactor itemImage -> image
 function App() {
   const route = window.location.pathname;
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="/" element={<Homapage />} />
           <Route path="/login" element={<Login />} />
           <Route path='/movies' element={<MovieViewAllPage />} />
+          <Route path='/movies/:id' element={<MovieViewDetailPage />} />
           <Route path='/theater-rooms' element={<TheaterRoomViewAllPage />} />
           <Route path='/foods-and-drinks' element={<FoodDrinkViewAllPage />} />
           <Route path='/staffs' element={<StaffViewAllPage />} />

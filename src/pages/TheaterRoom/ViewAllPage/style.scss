@@ -7,6 +7,7 @@
     flex-direction: column;
     gap: 30px;
     animation: fidein 0.1s ease-in-out;
+
     img {
         border-radius: 10px;
         width: 100%;
@@ -73,8 +74,30 @@
         }
 
         .empty-box {
+            position: relative;
             width: 20%;
             height: auto;
+            background: black;
+            border-radius: 10px;
+
+            &:after {
+                position: absolute;
+                content: "MovieMate";
+                width: 100%;
+                height: fit-content;
+                top: 50%;
+                left: 0;
+                bottom: 50%;
+                right: 0;
+                text-align: center;
+                font-family: 'Oswald', sans-serif;
+                font-weight: 500;
+                font-size: 32px;
+                background: var(--color-gradient-green);
+                // -webkit-background-clip: text;
+                // -webkit-text-fill-color: transparent;
+                // background: red
+            }
         }
 
 
@@ -98,18 +121,47 @@
         }
     }
 
-    
+    .room-container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 20px;
+        justify-content: center;
+
+
+    }
+
+    .room-detail {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        font-family: 'Titillium Web', sans-serif;
+
+        .room-info {
+            // background: red;
+            border-right: 1px solid rgb(199, 199, 199);
+            padding: 20px;
+            .room-name {
+                font-family: 'Titillium Web', sans-serif;
+                font-size: 40px;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            p {
+                margin: 0;
+                font-size: 18px;
+                margin: 5px 0;
+                // font-weight: 600;
+            }
+        }
+
+      
+    }
+
+
 }
 
-.room-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 20px;
-    justify-content: center;
-
-
-}
 
 @keyframes fidein {
     from {
@@ -120,6 +172,7 @@
         opacity: 1;
     }
 }
+
 @media (max-width: 1400px) {
 
     .TheaterViewAllPage {

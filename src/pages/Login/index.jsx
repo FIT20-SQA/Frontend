@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./style.scss";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -9,13 +10,23 @@ export const Login = () => {
   };
 
   return (
-    <div className="row no-gutters">
-      <div className="col">
-        <div className="leftside">
+    <div className="background">
+      <div className="container">
+        <div className="login-image">
+        <div className="overlay">
+          <div className="text-head">
+          <p className="p1">THEGOOD<br/>THEATRE</p>
+          <div className="seperateline"></div>
+          <p className="p2">Welcome back!</p>
+          <p className="p3">Login to access all your favorite movies and TV shows.</p>
+          </div>
+        </div>
+        </div>
+        <div className="form-container">
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="sign-in">
-              <h1 className="text-danger pb-5">MovieMate</h1>
-              <h1>
+              <h1 className="pb-3 pt-5">MovieMate</h1>
+              <h1 className="pb-3">
                 <strong>Sign in</strong>
               </h1>
             </div>
@@ -48,7 +59,7 @@ export const Login = () => {
               id="password"
               name="password"
             />
-            <div className="button-login">
+            <div className="button-login pt-5">
               <div className="size-button-login">
                 <button className="btnlogin " type="submit">
                   <strong>Log In</strong>
@@ -58,9 +69,6 @@ export const Login = () => {
           </form>
         </div>
       </div>
-      {/* <div className="col">
-        <div className="login-image"></div>
-      </div> */}
     </div>
   );
 };

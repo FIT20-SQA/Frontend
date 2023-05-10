@@ -1,0 +1,90 @@
+.background {
+  background-image: var(--color-gradient2) !important;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    background-color: white;
+    max-width: 100%; /* Set a max-width to the container */
+    max-height: 100%;
+    margin: 60px 270px;
+    display: flex;
+    border-radius: 40px;
+    align-items: center;
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: 20px 20px 15px rgba(0, 0, 0.2, 0.2);
+    .login-image {
+      height: 100%;
+      width: 520px;
+      border-radius: 40px;
+      padding: 50px;
+      background-image: url("/images/loginimage.png");
+      background-size: cover; /* or cover */
+      background-repeat: no-repeat;
+      .overlay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        background-color: rgba(55, 43, 43, 0.215);
+        backdrop-filter: blur(10px);
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+
+        .p1 {
+            font-family: Titillium Web;
+            width: 150px;
+            font-size: 18px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 100;
+            margin: 0;
+            background-color: rgba(255, 255, 255, 0.422);
+        backdrop-filter: blur(10px);
+        }
+        .p2{
+            font-family: Titillium Web;
+            margin-top: 30px;
+            color: white;
+            font-size: 20px;
+            font-weight: 100;
+        }
+        .p3{
+            font-family: Titillium Web;
+            margin-top: 30px;
+            color: white;
+            font-size: 23px;
+            font-weight: 100;
+        }
+        .seperateline {
+            background-color: rgba(255, 255, 255, 0.422);
+        backdrop-filter: blur(10px);
+            margin-top: 50px;
+            width: 100px;
+            height: 5px;
+            border-radius: 20px;
+        }
+      }
+    }
+  }
+}
+.form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 80%;
+  max-width: 400px;
+}

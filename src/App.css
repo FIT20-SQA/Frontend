@@ -1,16 +1,18 @@
 /* Login Page */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@400;500&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@400;500&family=Roboto&display=swap");
 
 :root {
-  --primary-color: #ADFF00;
-  --primary-color-light: #DDFFBB;
-  --primary-color-dark: #17A500;
+  --primary-color: #adff00;
+  --primary-color-light: #ddffbb;
+  --primary-color-dark: #17a500;
   --color-gray: #c7c4c4;
   --color-gradient: linear-gradient(45deg, #008eff, #2dfd8e);
+  --color-gradient2: linear-gradient(to right, #16bffd, #cb3066);
+  --color-gradient3: linear-gradient(to right, #01a2fd, #1affff);
 }
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   transition: all 0.2s linear;
 }
 .App {
@@ -26,17 +28,12 @@
   display: flex;
   padding-bottom: 5px;
   flex-direction: column;
-  width: 50%;
+  width: 400px;
 }
 
 .label-email {
   width: 100%;
   text-align: left;
-}
-
-.sign-in {
-  width: 100%;
-  padding-bottom: 15%;
 }
 
 .label-password {
@@ -46,49 +43,65 @@
 }
 
 .button-login {
-  padding-top: 10%;
   width: 100%;
   text-align: center;
 }
 
 .btnlogin {
-  background: #ff4d4d;
+  background: var(--color-gradient3);
   width: 100%;
   border: thin;
   padding: 3%;
-  border-radius: 5px;
+  border-radius: 20px;
   color: white;
   cursor: pointer;
-  transition: color 0.4 linear;
 }
 
 .btnlogin:hover {
-  background: #ff3333;
+  transform: scale(1.05);
+}
+.btnlogin::after {
+  content: "→";
+
+  font-size: 18px;
+  margin-left: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.leftside,
-.rightside {
-  height: 100vh;
+.btnlogin:hover::after {
+  opacity: 1;
+  margin-left: 10px;
+}
+
+.btnlogin::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 0;
+  background: #2dfd8e;
+  border-radius: 20px;
+  z-index: -1;
+  transition: height 0.3s ease-in-out;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0.2, 0.2);
 }
 
-.leftside {
-  background: white;
+.btnlogin:hover::before {
+  height: 100%;
 }
-
-.rightside {
-  background: white;
+.btnlogin:active {
+  border: none;
 }
-
+/* 
 .login-image {
-  background-image: url("./images/LoginImage.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
+  background-image: url("./images/loginimage.png");
+  height: 100%;
+  width: 500px;
+  border-radius: 40px;
+  
+} */
 
 /* ------------------------------------------------------- */
 
@@ -102,7 +115,6 @@ li:hover {
 li:active {
   text-decoration: none;
 }
-
 
 .avatar {
   background-image: url("./images/LoginImage.jpg");

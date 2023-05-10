@@ -58,9 +58,9 @@ export const Login = () => {
           </form>
         </div>
       </div>
-      <div className="col">
+      {/* <div className="col">
         <div className="login-image"></div>
-      </div>
+      </div> */}
     </div>
   );
 };

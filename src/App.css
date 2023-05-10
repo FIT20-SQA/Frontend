@@ -1,10 +1,23 @@
 /* Login Page */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@400;500&family=Roboto&display=swap');
 
+:root {
+  --primary-color: #ADFF00;
+  --primary-color-light: #DDFFBB;
+  --primary-color-dark: #17A500;
+  --color-gray: #c7c4c4;
+  --color-gradient: linear-gradient(45deg, #008eff, #2dfd8e);
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.2s linear;
+}
 .App {
   /* text-align: center;
   display: flex;
   min-height: 100vh;
-  align-items: center;
+  align-items: center;  
   justify-content: center; */
 }
 

@@ -1,4 +1,5 @@
 /* Login Page */
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald:wght@400;500&family=Roboto&display=swap");
 
 :root {
@@ -14,15 +15,64 @@
 * {
   font-family: "Roboto", sans-serif;
   transition: all 0.2s linear;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Oswald&family=Roboto&family=Titillium+Web:wght@600&display=swap');
+
+:root {
+  /* generate a gradient color with red and blue? */
+  --primary-color: #00FF87;
+  /* --primary-color: linear-gradient(255deg, #00FF87, #078C5D); */
+  --primary-color-light: #DDFFBB;
+  --primary-color-dark: #17A500;
+  --color-gray: #c7c4c4;
+  --color-gradient-blue: linear-gradient(45deg, #008eff, #2dfd8e);
+  --color-gradient-green: linear-gradient(255deg, #00FF87, #078C5D);
 }
+
+* {
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.1s ease-in-out;
+
+
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background: var(--color-gradient-green);
+
+}
+
 .App {
+  position: relative;
   /* text-align: center;
   display: flex;
   min-height: 100vh;
   align-items: center;  
   justify-content: center; */
+
 }
 
+.app-container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+
+.bold {
+  font-weight: bold;
+}
 .auth-form-container,
 .login-form {
   display: flex;

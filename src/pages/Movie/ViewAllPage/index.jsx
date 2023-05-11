@@ -1,9 +1,10 @@
 import React from 'react';
 import './style.scss';
 import Movie from '../../../components/Movie';
+import { useNavigate } from 'react-router-dom';
 
 export default function () {
-
+    const navigate = useNavigate()
     const movies = [
         "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
         "The Assassination of Jesse James by the Coward Robert Ford",
@@ -53,6 +54,7 @@ export default function () {
                         posterLink={posterLinks[index]}
                         movieTitle={movieTitle}
                         releaseDate={releaseDate[index]}
+                        onClick={() => navigate(`/movies/1`)}
                         />
                 )}
                 )}

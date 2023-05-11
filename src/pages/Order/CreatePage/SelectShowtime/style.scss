@@ -1,0 +1,41 @@
+.step-2 {
+
+    .ShowtimeList {
+        padding: 20px 30px;
+
+
+        .showtime-list-text {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .showtime-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+
+    }
+
+    .SpotList {
+        padding: 20px 30px;
+
+        .spot-list-text {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .spot-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+
+    }
+}

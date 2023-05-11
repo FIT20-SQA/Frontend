@@ -1,4 +1,23 @@
 .SeatChart {
+    .movie-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .screen {
+            background: black;
+            width: 500px;
+            height: 10px;
+        }
+
+        .screen-text {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+    }
+
     .seat-chart-text {
         font-family: 'Titillium Web', sans-serif;
         font-size: 40px;
@@ -14,7 +33,7 @@
         justify-content: center;
         gap: 20px;
 
-        
+
 
     }
 

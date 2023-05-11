@@ -1,9 +1,15 @@
 import React from 'react';
 import './style.scss';
 import SeatRow from '../SeatRow';
-export default function ({ rowNum, seatNumPerRow }) {
+//TODO: useContext for this
+export default function ({ rowNum, seatNumPerRow, setSelectedSeats }) {
     return (
         <div className="SeatChart">
+            <div className="movie-screen">
+                <div className="screen"></div>
+                <p className="screen-text">Screen</p>
+
+            </div>
             <h1 className="seat-chart-text">Seat Chart</h1>
 
             <div className="seat-container">
@@ -12,6 +18,7 @@ export default function ({ rowNum, seatNumPerRow }) {
                         <SeatRow
                             row={row}
                             seatNumPerRow={seatNumPerRow}
+                            setSelectedSeats={setSelectedSeats}
                         />
 
                     )

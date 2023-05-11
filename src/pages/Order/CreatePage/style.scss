@@ -93,6 +93,14 @@
             }
         }
 
+        .active {
+            i {
+                transform: scale(1.1);
+                background: var(--color-gradient-green);
+                color: white;
+            }
+        }
+
         .message {
             display: grid;
             place-items: center;
@@ -109,56 +117,57 @@
 
     }
 
-    .step-1 {
-        .movie-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-            gap: 30px;
+    
+
+    
+   
+
+    .step-4 {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        justify-content: center;
+
+        .switch-btn-container {
+            display: flex;
+            margin: 0 auto;
+            justify-content: center;
+            gap: 40px;
+
+            .switch-btn {
+                padding: 5px 30px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: 'Titillium Web', sans-serif;
+                font-size: 16px;
+                cursor: pointer;
+                box-shadow: 1px 1px 5px 3px rgba(0, 0, 0, 0.187);
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+
+            .active-btn {
+                background: var(--color-gradient-green);
+                color: white;
+                transform: scale(1.2);
+            }
+        }
+
+        .item-container {
             // background: red;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             place-items: center;
-            padding: 30px;
+            column-gap: 20px;
+            row-gap: 30px;
+
         }
     }
 
-    .step-2 {
-
-        .ShowtimeList {
-            padding: 20px 30px;
-
-
-            .showtime-list-text {
-                font-family: 'Oswald', sans-serif;
-                font-weight: 500;
-                font-size: 30px;
-                margin-bottom: 20px;
-            }
-
-            .showtime-container {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-        
-        }
-
-        .SpotList {
-            padding: 20px 30px;
-
-            .spot-list-text {
-                font-family: 'Oswald', sans-serif;
-                font-weight: 500;
-                font-size: 30px;
-                margin-bottom: 20px;
-            }
-
-            .spot-container {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            
-        }
-    }
+   
 }

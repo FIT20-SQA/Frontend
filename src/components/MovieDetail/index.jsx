@@ -22,7 +22,7 @@ export default function ({displayLargePoster}) {
         return `${hours}h ${minutes}m`
     }
     return (
-        <div className={`MovieDetailPage  ${style}`}>
+        <div className={`MovieDetail  ${style}`}>
             <div className="heading">
                 <div className="row-1">
                     <p className="title">{movie.title}</p>

@@ -34,11 +34,20 @@ const Navbar = () => {
             >
               Home
             </Link>
-
+          </div>
+          <div className='nav-item'>
             <Link to="/create-order"
               className={checkIfHighlight('/create-order') ? 'nav-link active' : 'nav-link'}
             >
               Create Order
+            </Link>
+          </div>
+
+          <div className='nav-item'>
+            <Link to="/order-history"
+              className={checkIfHighlight('/order-history') ? 'nav-link active' : 'nav-link'}
+            >
+              Order history 
             </Link>
           </div>
           <div className="nav-item">

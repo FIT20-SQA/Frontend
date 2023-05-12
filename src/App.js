@@ -5,7 +5,9 @@ import MovieViewDetailPage from './pages/Movie/ViewDetails'
 import TheaterRoomViewAllPage from './pages/TheaterRoom/ViewAllPage'
 import FoodDrinkViewAllPage from './pages/FoodDrink/ViewAllPage'
 import StaffViewAllPage from './pages/Staff/ViewAllPage'
+import OrderViewAllPage from './pages/Order/ViewAllPage'
 import OrderCreatePage from './pages/Order/CreatePage'
+import OrderViewDetailPage from './pages/Order/ViewDetails'
 import UserProfilePage from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom"
@@ -28,6 +30,8 @@ function App() {
           <Route path='/theater-rooms' element={<TheaterRoomViewAllPage />} />
           <Route path='/foods-and-drinks' element={<FoodDrinkViewAllPage />} />
           <Route path='/create-order' element={<OrderCreatePage />} />
+          <Route path='/order-history' element={<OrderViewAllPage />} />
+          <Route path='/order/:id' element={<OrderViewDetailPage />} />
           <Route path='/staffs' element={<StaffViewAllPage />} />
           <Route path='/profile' element={<UserProfilePage />} />
         </Routes>

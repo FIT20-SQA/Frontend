@@ -6,7 +6,7 @@ export default function () {
     const [selectedShowtime, setSelectedShowtime] = useState(undefined)
     const [selectedShowtimeSpot, setSelectedShowtimeSpot] = useState(undefined)
     //TODO: click to a spot will redirect it to the scheduling page
-    
+
     const handleClickShowtimeDate = (showtime) => {
         //selectedShowtime can be undefined in the beginning
         if (selectedShowtime?.date !== showtime.date) {
@@ -42,6 +42,7 @@ export default function () {
                 handleClickShowtimeDate={handleClickShowtimeDate}
                 handleClickShowtimeSpot={handleClickShowtimeSpot}
             />
+            
         </div>
 
 

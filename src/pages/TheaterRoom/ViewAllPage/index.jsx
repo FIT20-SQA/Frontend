@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './style.scss';
 import ThreaterRoom from '../../../components/ThreaterRoom';
 import SeatChart from '../../../components/SeatChart';
+import RoomDetail from '../../../components/RoomDetail';
 export default function () {
     const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
     const roomData = [
@@ -105,21 +106,9 @@ export default function () {
                 })}
             </div>
 
-            <div className="room-detail">
-                <div className="room-info">
-                    <h1 className="room-name">
-                        {roomData[currentRoomIndex].roomName}
-                    </h1>
-                    <p><span className="bold">Number of rows:</span> {roomData[currentRoomIndex].rowNum}</p>
-                    <p><span className="bold">Number of seats per row:</span> {roomData[currentRoomIndex].seatNumPerRow}</p>
-                    <p><span className="bold">Capacity:</span> {roomData[currentRoomIndex].rowNum * roomData[currentRoomIndex].seatNumPerRow}</p>
-                </div>
-
-                <SeatChart
-                    rowNum={roomData[currentRoomIndex].rowNum}
-                    seatNumPerRow={roomData[currentRoomIndex].seatNumPerRow}
-                />
-            </div>
+            <RoomDetail 
+                theaterRoom={roomData[currentRoomIndex]} 
+            />
 
 
 

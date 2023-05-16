@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Seat from '../Seat';
-export default function({row, seatNumPerRow, setSelectedSeats}) {
+export default function({row, seatNumPerRow, setSelectedSeats, rowColor}) {
     const handleClick = (row, col) => {
         setSelectedSeats(prevVal => {
             // ignore the same seat is added twice
@@ -17,6 +17,7 @@ export default function({row, seatNumPerRow, setSelectedSeats}) {
                     row={row}
                     col={col}
                     onClick={() => handleClick(row, col)}
+                    color={rowColor}
                 />
             )
         })}

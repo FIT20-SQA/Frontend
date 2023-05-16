@@ -2,8 +2,9 @@ import React from 'react';
 import './style.scss';
 import ShowTime from '../ShowTime';
 import ShowtimeSpot from '../ShowtimeSpot';
+import { useNavigate } from 'react-router-dom';
 export default function ({ selectedShowtime, selectedShowtimeSpot, handleClickShowtimeDate, handleClickShowtimeSpot }) {
-
+    const navigate = useNavigate()
     const showtimes = [
         {
             date: "Tue May 23 2023 16:35:45 GMT+0700",
@@ -71,7 +72,9 @@ export default function ({ selectedShowtime, selectedShowtimeSpot, handleClickSh
         }
     ]
 
-
+    const handleAddingSchduling = () => {
+        navigate("/movie-scheduling")
+    }
     return (
 
         <div className="MovieShowtimeDetails">
@@ -89,7 +92,7 @@ export default function ({ selectedShowtime, selectedShowtimeSpot, handleClickSh
 
                     })}
 
-                    <div className="add-btn">
+                    <div className="add-btn" onClick={handleAddingSchduling}>
                         <p className="add-btn-text">Add</p>
                     </div>
                 </div>
@@ -110,7 +113,7 @@ export default function ({ selectedShowtime, selectedShowtimeSpot, handleClickSh
                                 />
                             )
                         })}
-                        <div className="add-btn">
+                        <div className="add-btn" onClick={handleAddingSchduling}>
                             <p className="add-btn-text">Add</p>
                         </div>
                     </div>

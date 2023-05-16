@@ -10,6 +10,7 @@ import OrderCreatePage from './pages/Order/CreatePage'
 import OrderViewDetailPage from './pages/Order/ViewDetails'
 import UserProfilePage from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
+import MovieSchedule from "./pages/MovieSchedule";
 import { Routes, Route } from "react-router-dom"
 import "./App.css";
 //TODO: create a context to store information about user including: name, avatar and role?
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path='/movies' element={<MovieViewAllPage />} />
           <Route path='/movies/:id' element={<MovieViewDetailPage />} />
+          <Route path='/movie-scheduling' element={<MovieSchedule />} />
           <Route path='/theater-rooms' element={<TheaterRoomViewAllPage />} />
           <Route path='/foods-and-drinks' element={<FoodDrinkViewAllPage />} />
           <Route path='/create-order' element={<OrderCreatePage />} />

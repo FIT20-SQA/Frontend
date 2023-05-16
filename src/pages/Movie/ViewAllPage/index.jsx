@@ -44,20 +44,27 @@ export default function () {
         'March 2016'
     ];
 
+    const handleClick = () => {
+        navigate("/")
+    }
 
     return (
         <div className='MovieViewAllPage'>
-
-            {movies.map((movieTitle, index) => {
-                return (
-                    <Movie
-                        posterLink={posterLinks[index]}
-                        movieTitle={movieTitle}
-                        releaseDate={releaseDate[index]}
-                        onClick={() => navigate(`/movies/1`)}
+            <p className="add-movie-btn" onClick={handleClick}>Add Movie</p>
+            <div className="movie-container">
+                {movies.map((movieTitle, index) => {
+                    return (
+                        <Movie
+                            posterLink={posterLinks[index]}
+                            movieTitle={movieTitle}
+                            releaseDate={releaseDate[index]}
+                            onClick={() => navigate(`/movies/1`)}
                         />
+                    )
+                }
                 )}
-                )}
+            </div>
+
 
         </div>
     )

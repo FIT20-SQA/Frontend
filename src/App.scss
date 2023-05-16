@@ -137,7 +137,29 @@ li:active {
   text-decoration: none;
 }
 
+.gradient-btn{
+  margin-bottom: 50px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 24px;
+  color: #fff;
+  padding: 10px 50px;
+  width: fit-content;
+  border-radius: 10px;
+  border: none;
+  background: rgb(47, 255, 137);
+  color: black;
+  cursor: pointer;
 
+  &:focus {
+      outline: none;
+  }
+
+  &:hover {
+      transform: scale(1.02);
+      background: var(--color-gradient-green);
+      color: white;
+  }
+}
 .avatar {
   background-image: url("./images/LoginImage.jpg");
   background-size: cover;

@@ -17,7 +17,7 @@ export default function () {
 
     const [selectSeats, setSelectedSeats] = useState([])
     const [message, setMessage] = useState()
-    const [currentStep, setCurrentStep] = useState(5)
+    const [currentStep, setCurrentStep] = useState(1)
 
 
     useEffect(() => {

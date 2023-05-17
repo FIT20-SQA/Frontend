@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './style.scss';
 
 import AppLogo from '../../../images/logo.png'
+import axios from 'axios';
+import UserContext from '../../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 export default function () {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate();
 
-
+    const { user, setUser, jwtToken, setJwtToken } = useContext(UserContext)
     const toggleShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
-    const handleLogin = () => {
-        console.log('handleLogin');
+    const handleLogin = async () => {
+        const body = {
+            email: email,
+            password: password
+        }
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, body, {})
+        if (response.data.success) {
+            localStorage.setItem('token', response.data.token)
+            navigate('/')
+            setJwtToken(response.data.token)
+        }
+
     }
     return (
         <div className="Login">

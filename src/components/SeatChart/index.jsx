@@ -6,7 +6,7 @@ export default function ({ rowNum, seatNumPerRow, setSelectedSeats, rowColors, s
 
     const smallSizeStyle = smallSize ? 'small-size' : ''
     return (
-        <div className={`'SeatChart' ${smallSizeStyle}`}>
+        <div className={`SeatChart ${smallSizeStyle}`}>
             <div className="movie-screen">
                 <div className="screen"></div>
                 <p className="screen-text">Screen</p>

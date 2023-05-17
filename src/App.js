@@ -44,7 +44,7 @@ function App() {
           <Route path='/add-theater-room' element={<TheaterRoomCreatePage />} />
           
           <Route path='/foods-and-drinks' element={<FoodDrinkViewAllPage />} />
-          <Route path='/add-food-and-drins' element={<FoodDrinkViewAllPage />} />
+          <Route path='/add-food-and-drink' element={<FoodDrinkCreatePage />} />
 
           <Route path='/create-order' element={<OrderCreatePage />} />
           <Route path='/order-history' element={<OrderViewAllPage />} />

@@ -1,4 +1,3 @@
-import { Login } from "./pages/Login";
 import Homapage from "./pages/Homepage";
 import MovieViewAllPage from './pages/Movie/ViewAllPage'
 import MovieViewDetailPage from './pages/Movie/ViewDetails'
@@ -20,6 +19,8 @@ import OrderViewDetailPage from './pages/Order/ViewDetails'
 import UserProfilePage from "./pages/UserProfile";
 import Navbar from "./components/Navbar";
 import MovieSchedule from "./pages/MovieSchedule";
+
+import Login from "./pages/Auth/Login";
 import { Routes, Route } from "react-router-dom"
 import "./App.scss";
 //TODO: create a context to store information about user including: name, avatar and role?

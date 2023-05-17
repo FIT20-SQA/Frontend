@@ -187,7 +187,9 @@ export default function () {
 
                         <div className="item description">
                             <p className="item-text">Description: </p>
-                            <textarea></textarea>
+                            <textarea value={descriptionInput}
+                                onChange={(e) => setDescriptionInput(e.target.value)}
+                            ></textarea>
                         </div>
 
                         <div className="item actor">

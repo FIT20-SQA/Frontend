@@ -38,3 +38,61 @@
     }
 
 }
+
+.small-size {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .movie-screen {
+        .screen {
+            background: black;
+            width: 250px;
+            height: 5px;
+        }
+
+        .screen-text {
+            font-size: 15px;
+            margin-bottom: 10px;
+            text-align: center;
+
+        }
+    }
+
+    .seat-chart-text {
+        font-family: 'Titillium Web', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+
+    }
+
+    .seat-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+
+        .Seat {
+     
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+        
+            p {
+                margin: 0;
+                display: inline-block;
+                max-width: 60px;
+                font-size: 10px;
+            }
+        
+            .rowNum {
+                font-size: 8px;
+                border-bottom: 1px solid black;
+                font-weight: bold;
+            }
+        }
+
+    }
+}

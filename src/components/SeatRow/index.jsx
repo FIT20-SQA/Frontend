@@ -11,16 +11,16 @@ export default function({row, seatNumPerRow, setSelectedSeats, rowColor}) {
     } 
     return (
         <div className="SeatRow">
-        {Array.from(Array(seatNumPerRow).keys()).map(col => {
-            return (
-                <Seat 
-                    row={row}
-                    col={col}
-                    onClick={() => handleClick(row, col)}
-                    color={rowColor}
-                />
-            )
-        })}
+            {Array.from(Array(Number(seatNumPerRow)).keys()).map(col => {
+                return (
+                    <Seat 
+                        row={row}
+                        col={col}
+                        onClick={() => handleClick(row, col)}
+                        color={rowColor}
+                    />
+                )
+            })}
     </div>
     )
 }

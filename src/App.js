@@ -5,8 +5,13 @@ import MovieViewDetailPage from './pages/Movie/ViewDetails'
 import MovieCreatePage from './pages/Movie/CreatePage'
 
 import TheaterRoomViewAllPage from './pages/TheaterRoom/ViewAllPage'
+import TheaterRoomCreatePage from './pages/TheaterRoom/CreatePage'
+
 import FoodDrinkViewAllPage from './pages/FoodDrink/ViewAllPage'
+import FoodDrinkCreatePage from './pages/FoodDrink/CreatePage'
+
 import StaffViewAllPage from './pages/Staff/ViewAllPage'
+import StaffCreatePage from './pages/Staff/CreatePage'
 
 import OrderViewAllPage from './pages/Order/ViewAllPage'
 import OrderCreatePage from './pages/Order/CreatePage'
@@ -34,12 +39,20 @@ function App() {
           <Route path='/add-movie' element={<MovieCreatePage />} />
           <Route path='/movies/:id' element={<MovieViewDetailPage />} />
           <Route path='/movie-scheduling' element={<MovieSchedule />} />
+
           <Route path='/theater-rooms' element={<TheaterRoomViewAllPage />} />
+          <Route path='/add-theater-room' element={<TheaterRoomCreatePage />} />
+          
           <Route path='/foods-and-drinks' element={<FoodDrinkViewAllPage />} />
+          <Route path='/add-food-and-drins' element={<FoodDrinkViewAllPage />} />
+
           <Route path='/create-order' element={<OrderCreatePage />} />
           <Route path='/order-history' element={<OrderViewAllPage />} />
           <Route path='/order/:id' element={<OrderViewDetailPage />} />
+
           <Route path='/staffs' element={<StaffViewAllPage />} />
+          <Route path='/add-staff' element={<StaffCreatePage />} />
+
           <Route path='/profile' element={<UserProfilePage />} />
         </Routes>
       </div>

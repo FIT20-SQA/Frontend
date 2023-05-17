@@ -7,6 +7,7 @@ import Item from '../../../components/FoodDrinkItem'
 
 import Popup from '../../../components/Popup';
 import ItemTypeSwitchPanel from '../../../components/ItemTypeSwitchPanel';
+import AddFoodAndDrinkBtn from '../../../components/AddFoodAndDrinkBtn';
 
 
 export default function () {
@@ -175,11 +176,12 @@ export default function () {
 
     return (
         <div className='FoodDrinkViewAllPage'>
-            <ItemTypeSwitchPanel 
+
+            <ItemTypeSwitchPanel
                 currentItemType={currenItemType}
                 setCurrentItemType={setCurrentItemType}
                 itemTypes={itemTypes}
-            
+
             />
             {/* <div className="switch-btn-container">
                 <div className={itemType == 'food' ? 'switch-btn active-btn' : 'switch-btn'} onClick={() => handleSwitchItemtype('food')}>
@@ -193,7 +195,7 @@ export default function () {
             </div> */}
 
             <div className="item-container">
-
+                <AddFoodAndDrinkBtn />
                 {
                     currenItemType == 'Foods' ?
                         foods.map((food, index) => {

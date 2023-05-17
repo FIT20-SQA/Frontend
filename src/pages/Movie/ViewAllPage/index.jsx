@@ -2,6 +2,7 @@ import React from 'react';
 import './style.scss';
 import Movie from '../../../components/Movie';
 import { useNavigate } from 'react-router-dom';
+import AddMovieBtn from '../../../components/AddMovieBtn';
 
 export default function () {
     const navigate = useNavigate()
@@ -45,13 +46,13 @@ export default function () {
     ];
 
     const handleClick = () => {
-        navigate("/")
+        navigate("/add-movie")
     }
 
     return (
         <div className='MovieViewAllPage'>
-            <p className="add-movie-btn" onClick={handleClick}>Add Movie</p>
             <div className="movie-container">
+                <AddMovieBtn />
                 {movies.map((movieTitle, index) => {
                     return (
                         <Movie

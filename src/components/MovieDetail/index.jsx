@@ -1,7 +1,9 @@
 import React from 'react';
 import './style.scss';
+import Genre from '../Genre';
+import PersonName from '../PersonName';
 
-export default function ({displayLargePoster}) {
+export default function ({ displayLargePoster }) {
     const style = displayLargePoster ? '' : 'display-small-poster' // because this component is used in two places, we need to be able to control the size of the poster
     const movie = {
         title: 'The Avengers',
@@ -41,16 +43,17 @@ export default function ({displayLargePoster}) {
                 </div>
                 <div className="info">
                     <div className="genre-container">
-                        {movie.genres.map(genre => <p className="genre">{genre}</p>)}
+                        {movie.genres.map(genre => <Genre genre={genre} />)}
+
                     </div>
                     <p className="description">{movie.description}</p>
                     <h1 className='bold'>Actors: </h1>
                     <div className="actor-container">
-                        {movie.actors.map(character => <p className="actor">{character}</p>)}
+                        {movie.actors.map(name => <PersonName name={name} />)}
                     </div>
                     <h1 className='bold'>Director: </h1>
                     <div className="director-container">
-                        {movie.director.map(director => <p className="director">{director}</p>)}
+                        {movie.director.map(name => <PersonName name={name} />)}
                     </div>
                 </div>
             </div>

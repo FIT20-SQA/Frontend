@@ -19,7 +19,7 @@ export default function ({ rowNum, seatNumPerRow, setSelectedSeats, rowColors })
                             row={row}
                             seatNumPerRow={seatNumPerRow}
                             setSelectedSeats={setSelectedSeats}
-                            rowColor={rowColors[index]}
+                            rowColor={rowColors ? rowColors[index] : null}
                         />
 
                     )

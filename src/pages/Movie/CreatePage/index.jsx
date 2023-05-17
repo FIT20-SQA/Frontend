@@ -2,11 +2,29 @@ import React from 'react';
 import './style.scss';
 import { useState } from 'react';
 import { useRef } from 'react';
+import Genre from '../../../components/Genre';
+import PersonName from '../../../components/PersonName';
 export default function () {
 
     const [isDragOver, setIsDragOver] = useState(false);
     const [file, setFile] = useState();
+
+
+    const [genres, setGenres] = useState([])
+    const [actors, setActors] = useState([])
+    const [directors, setDirectors] = useState([])
+
+    const [genreInput, setGenreInput] = useState()
+    const [actorInput, setActorInput] = useState()
+    const [directorInput, setDirectorInput] = useState()
+    const [movieTitleInput, setMovieTitleInput] = useState()
+    const [releaseDateInput, setReleaseDateInput] = useState()
+    const [durationInput, setDurationInput] = useState()
+    const [countryInput, setCountryInput] = useState()
+    const [descriptionInput, setDescriptionInput] = useState()
+
     const fileInputRef = useRef(null);
+
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -35,6 +53,28 @@ export default function () {
         console.log(e.target.files[0]);
         setFile(e.target.files[0]);
     };
+
+    const handleAddGenre = () => {
+        if (genreInput.trim()) {
+            setGenres([...genres, genreInput])
+            setGenreInput('')
+        }
+    }
+
+    const handleAddActor = () => {
+        if (actorInput.trim()) {
+            setActors([...actors, actorInput])
+            setActorInput('')
+        }
+    }
+
+    const handleAddDirector = () => {
+        if (directorInput.trim()) {
+            setDirectors([...directors, directorInput])
+            setDirectorInput('')
+        }
+    }
+
     return (
         <div className='MovieCreatePage'>
             <h1 className='add-movie-text'>Add Movie</h1>
@@ -42,7 +82,11 @@ export default function () {
                 <div className="left">
                     <div className="movie-title">
                         <p className="item-text">Movie Title</p>
-                        <input className='title' type="text" />
+                        <input className='title' type="text"
+                            placeholder='Enter movie title'
+                            value={movieTitleInput}
+                            onChange={(e) => setMovieTitleInput(e.target.value)}
+                        />
                     </div>
 
                     {
@@ -97,23 +141,48 @@ export default function () {
                     <div className="item-container">
                         <div className="item genre">
                             <p className="item-text">Genre: </p>
-                            <input type="text" />
+                            <input type="text"
+                                placeholder='Enter genre'
+                                value={genreInput}
+                                onChange={(e) => setGenreInput(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        handleAddGenre()
+                                    }
+                                }}
+                            />
+                            <p className='add-btn' onClick={handleAddGenre}><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                        <div className="genre-container">
+                            {genres.map(genre => <Genre genre={genre} />)}
+
                         </div>
 
                         <div className="item release-date">
                             <p className="item-text">Release Date: </p>
-                            <input type="date" />
+                            <input type="date"
+                                value={releaseDateInput}
+                                onChange={(e) => setReleaseDateInput(e.target.value)}
+                            />
                         </div>
 
                         <div className="item duration">
                             <p className="item-text">Duration: </p>
-                            <input type="number" />
+                            <input type="number"
+                                placeholder='Enter duration (minutes)'
+                                value={durationInput}
+                                onChange={(e) => setDurationInput(e.target.value)}
+                            />
                         </div>
 
 
                         <div className="item country">
                             <p className="item-text">Country: </p>
-                            <input type="text" />
+                            <input type="text"
+                                placeholder='Enter country'
+                                value={countryInput}
+                                onChange={(e) => setCountryInput(e.target.value)}
+                            />
                         </div>
 
                         <div className="item description">
@@ -123,12 +192,38 @@ export default function () {
 
                         <div className="item actor">
                             <p className="item-text">Actor: </p>
-                            <input type="text" />
+                            <input type="text"
+                                placeholder='Enter actor'
+                                value={actorInput}
+                                onChange={(e) => setActorInput(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        handleAddActor()
+                                    }
+                                }}
+                            />
+                            <p className='add-btn' onClick={handleAddActor}><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                        <div className="actor-container">
+                            {actors.map(actor => <PersonName name={actor} />)}
                         </div>
 
                         <div className="item director">
                             <p className="item-text">Director: </p>
-                            <input type="text" />
+                            <input type="text"
+                                placeholder='Enter director'
+                                value={directorInput}
+                                onChange={(e) => setDirectorInput(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        handleAddDirector()
+                                    }
+                                }}
+                            />
+                            <p className='add-btn' onClick={handleAddDirector}><i class="fa-solid fa-plus"></i></p>
+                        </div>
+                        <div className="director-container">
+                            {directors.map(actor => <PersonName name={actor} />)}
                         </div>
                     </div>
 

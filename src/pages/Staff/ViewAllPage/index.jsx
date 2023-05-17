@@ -3,6 +3,7 @@ import './style.scss';
 import Staff from '../../../components/Staff';
 import Popup from '../../../components/Popup'
 import { useState } from 'react';
+import AddStaffBtn from '../../../components/AddStaffBtn';
 export default function () {
     const [currentStaff, setCurrentStaff] = useState();
     const [showPopup, setShowPopup] = useState(false);
@@ -141,6 +142,7 @@ export default function () {
 
     return (
         <div className='StaffViewAllPage'>
+            <AddStaffBtn />
             {staffs.map((staff, index) => {
                 return (
                     <Staff

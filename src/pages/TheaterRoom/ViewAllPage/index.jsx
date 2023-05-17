@@ -3,6 +3,7 @@ import './style.scss';
 import ThreaterRoom from '../../../components/ThreaterRoom';
 import SeatChart from '../../../components/SeatChart';
 import RoomDetail from '../../../components/RoomDetail';
+import AddTheaterRoomBtn from '../../../components/AddTheaterRoomBtn';
 export default function () {
     const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
     const roomData = [
@@ -26,7 +27,7 @@ export default function () {
         },
         {
             roomImage: 'https://images.unsplash.com/photo-1577382144834-8a80d92b925c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-            roomName: 'Room C24',
+            roomkName: 'Room C24',
             rowNum: 9,
             seatNumPerRow: 11,
         },
@@ -95,7 +96,7 @@ export default function () {
             </div>
 
             <div className="room-container">
-
+                <AddTheaterRoomBtn />
                 {roomData.map((room, index) => {
                     return <ThreaterRoom
                         roomName={room.roomName}

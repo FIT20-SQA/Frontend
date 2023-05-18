@@ -2,9 +2,23 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import SeatRow from '../SeatRow';
 //TODO: useContext for this
-export default function ({ rowNum, seatNumPerRow, setSelectedSeats, rowColors, smallSize }) {
+export default function ({ rowNum, seatNumPerRow, setSelectedSeats, selectedSeats,  rowColors, smallSize , tickets}) {
 
     const smallSizeStyle = smallSize ? 'small-size' : ''
+    const ticketByRow = [];
+
+    if (tickets && tickets.length > 0) {
+        tickets.forEach(ticket => {
+            if (ticketByRow[ticket.row]) {
+                ticketByRow[ticket.row].push(ticket);
+            } else {
+                ticketByRow[ticket.row] = [ticket];
+            }
+        });
+    }
+
+    console.log('ticketbyrow');
+    console.log(ticketByRow);
     return (
         <div className={`SeatChart ${smallSizeStyle}`}>
             <div className="movie-screen">
@@ -21,8 +35,10 @@ export default function ({ rowNum, seatNumPerRow, setSelectedSeats, rowColors, s
                             <SeatRow
                                 row={row}
                                 seatNumPerRow={seatNumPerRow}
+                                selectedSeats={selectedSeats}
                                 setSelectedSeats={setSelectedSeats}
                                 rowColor={rowColors ? rowColors[index] : null}
+                                ticketByRow={ticketByRow}
                             />
                         </>
 

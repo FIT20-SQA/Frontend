@@ -1,19 +1,60 @@
-import React from 'react';
+
+import React, { useContext, useState, useEffect } from 'react';
+import UserContext from '../../context/UserContext';
+
+import axios from 'axios';
 import './style.scss';
 import MovieDetail from '../MovieDetail';
 import SeatOrderItem from '../SeatOrderItem';
 import FoodDrinkOrderItem from '../FoodDrinkOrderItem';
 
-export default function ({ posterLink, movieTitle, releaseDate }) {
+export default function ({ selectedMovie, selectedShowtime, selectedShowtimeSpot, selectedFoods, selectedDrinks, selectedSeats, selectedTheaterRoom }) {
+
+    const { jwtToken } = useContext(UserContext)
+
+    const date = new Date(selectedShowtime.date)
+    const month = date.toLocaleDateString('en-US', { month: 'short' }); // May
+    const dayOfMonth = date.toLocaleDateString('en-US', { day: 'numeric' }); // 23
+    const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' }); // Tue
+
+    let start = formatTime(selectedShowtimeSpot.split("-")[0])
+    let end = formatTime(selectedShowtimeSpot.split("-")[1])
+
+    let totalSeatPrice = 0
+    selectedSeats.forEach(seat => {
+        totalSeatPrice += Number(seat.price)
+    })
+    let totalFoodPrice = 0
+    selectedFoods.forEach(item => {
+        totalFoodPrice += Number(item.item.price * item.quantity)
+    })
+
+    let totalDrinkPrice = 0
+    selectedDrinks.forEach(item => {
+        totalDrinkPrice += Number(item.item.price * item.quantity)
+    })
+
+    let totalPrice = totalSeatPrice + totalFoodPrice + totalDrinkPrice
+    function formatTime(time) {
+        let formattedTime = null;
+        if (Number(time) < 12) {
+            formattedTime = time + " AM"
+        } else {
+            formattedTime = time + " PM"
+        }
+
+        return formattedTime
+    }
+
+    const handleSave = () => {
+
+    }
     return (
         <div className="OrderDetail">
             <div className="text">Order Details</div>
             <div className="movie-container">
                 <MovieDetail
-                    posterLink={posterLink}
-                    movieTitle={movieTitle}
-                    releaseDate={releaseDate}
-                    // onClick={() => handleClickMovie(0)}
+                    movieId={selectedMovie._id}
                     displayLargePoster={false}
                 />
             </div>
@@ -21,11 +62,11 @@ export default function ({ posterLink, movieTitle, releaseDate }) {
             <div className="showtime-info-container">
                 <h1 className='text'>Showtime information:</h1>
                 <div className="showtime-info">
-                    <p className="month">May</p>
-                    <p className="dayOfMonth">23</p>
-                    <p className="dayOfWeek">Tue</p>
+                    <p className="month">{month}</p>
+                    <p className="dayOfMonth">{dayOfMonth}</p>
+                    <p className="dayOfWeek">{dayOfWeek}</p>
                     <p>|</p>
-                    <p className="showtime-spot">12 PM - 14 PM</p>
+                    <p className="showtime-spot">{start} - {end}</p>
                 </div>
 
             </div>
@@ -39,12 +80,16 @@ export default function ({ posterLink, movieTitle, releaseDate }) {
                     <p className="price-text">Price</p>
                 </div>
                 <div className="seat-order-item-container">
-                    <SeatOrderItem />
-                    <SeatOrderItem />
-                    <SeatOrderItem />
-                    <SeatOrderItem />
+                    {selectedSeats.map(seat => {
+                        return <SeatOrderItem
+                            row={seat.row}
+                            col={seat.col}
+                            price={seat.price}
+                            theaterRoomName={selectedTheaterRoom.name}
+                        />
+                    })}
                 </div>
-                <p className="totalPrice">Total: $102</p>
+                <p className="totalPrice">Total: ${totalSeatPrice}</p>
             </div>
 
             <div className="item-container">
@@ -52,21 +97,29 @@ export default function ({ posterLink, movieTitle, releaseDate }) {
 
                 <h1 className='text'>Purchased Food:</h1>
                 <div className="item-container">
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
+                    {selectedFoods.map(item => {
+                        return <FoodDrinkOrderItem
+                            image={item.item.image}
+                            name={item.item.name}
+                            quantity={item.quantity}
+                            price={item.item.price}
+                        />
+                    })}
                 </div>
-                <p className="totalPrice">Total: $102</p>
+                <p className="totalPrice">Total: ${totalFoodPrice}</p>
 
                 <h1 className='text'>Purchased Drink:</h1>
                 <div className="item-container">
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
-                    <FoodDrinkOrderItem />
+                    {selectedDrinks.map(item => {
+                        return <FoodDrinkOrderItem
+                            image={item.item.image}
+                            name={item.item.name}
+                            quantity={item.quantity}
+                            price={item.item.price}
+                        />
+                    })}
                 </div>
-                <p className="totalPrice">Total: $102</p>
+                <p className="totalPrice">Total: ${totalDrinkPrice}</p>
 
             </div>
 
@@ -79,14 +132,14 @@ export default function ({ posterLink, movieTitle, releaseDate }) {
 
                 </div>
                 <div className="price-container">
-                    <p className="seat-price">$10</p>
-                    <p className='food-price'>$20</p>
-                    <p className='drink-price'>$30</p>
-                    <p className="order-total-price">$100.50</p>
+                    <p className="seat-price">${totalSeatPrice}</p>
+                    <p className='food-price'>${totalFoodPrice}</p>
+                    <p className='drink-price'>${totalDrinkPrice}</p>
+                    <p className="order-total-price">${totalPrice}</p>
                 </div>
             </div>
 
-           
+
         </div>
     )
 

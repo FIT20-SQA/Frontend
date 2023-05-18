@@ -9,7 +9,7 @@ import Item from '../../../../components/FoodDrinkItem';
 
 import FoodIcon from '../../../../images/hamburger.png'
 import DrinkIcon from '../../../../images/cola.png'
-export default function ({ selectedItems, setSelectedItems }) {
+export default function ({ selectedFoods, selectedDrinks, setSelectedFoods, setSelectedDrinks }) {
     const [currenItemType, setCurrentItemType] = useState('Foods')
     const [foods, setFoods] = useState([])
     const [drinks, setDrinks] = useState([])
@@ -47,41 +47,104 @@ export default function ({ selectedItems, setSelectedItems }) {
         fetchFoods()
         fetchDrinks()
     }, [])
-    const handleSelect = (newItem) => {
+    const handleSelectFood = (newItem) => {
         // TODO: check by id
         // add if not exists
-        setSelectedItems(preVal => {
-            if (preVal.some(selectedItem => selectedItem.itemName == newItem.itemName)) {
+        setSelectedFoods(preVal => {
+            if (preVal.some(selectedItem => selectedItem._id == newItem._id)) {
                 return preVal
             }
-            return [...preVal, newItem]
+            return [...preVal, {
+                item: newItem,
+                quantity: 1
+            }]
         })
 
-        console.log(selectedItems);
     }
 
 
-    const handleUnselect = (newItem) => {
+    const handleUnselectFood = (newItem) => {
         // TODO: check by id
         // remove if exists
-        setSelectedItems(preVal => {
-            if (preVal.some(selectedItem => selectedItem.itemName == newItem.itemName)) {
-                console.log('filtering');
-                console.log(preVal.filter(selectedItem => selectedItem.itemName !== newItem.itemName));
-                return preVal.filter(selectedItem => selectedItem.itemName !== newItem.itemName);
+        setSelectedFoods(preVal => {
+            if (preVal.some(selectedItem => selectedItem.item._id == newItem._id)) {
+                return preVal.filter(selectedItem => selectedItem.item._id !== newItem._id);
             }
-            console.log('the same');
             return [...preVal]
         })
 
-        console.log(selectedItems);
     }
 
-    const checkIfItemActive = (item) => {
-        return selectedItems
-            .some(selectedItem => selectedItem.itemName === item.itemName);
+    const checkIfFoodActive = (item) => {
+        return selectedFoods
+            .some(selectedItem => selectedItem.item._id === item._id);
     }
 
+    const handleChangeSelectedFoodQuantity = (foodId, newQuantity) => {
+
+        setSelectedFoods(preVal => {
+            return preVal.map(selectedItem => {
+                if (selectedItem.item._id === foodId) {
+                    return {
+                        ...selectedItem,
+                        quantity: newQuantity
+                    }
+                }
+                return selectedItem
+            })
+        })
+    }
+
+
+
+    const handleSelectDrink = (newItem) => {
+        // TODO: check by id
+        // add if not exists
+        setSelectedDrinks(preVal => {
+            if (preVal.some(selectedItem => selectedItem.item._id == newItem._id)) {
+                return preVal
+            }
+            return [...preVal, {
+                item: newItem,
+                quantity: 1
+            }]
+        })
+
+    }
+
+
+    const handleUnselectDrink = (newItem) => {
+        // TODO: check by id
+        // remove if exists
+        setSelectedDrinks(preVal => {
+            if (preVal.some(selectedItem => selectedItem.item._id == newItem._id)) {
+                return preVal.filter(selectedItem => selectedItem.item._id !== newItem._id);
+            }
+            return [...preVal]
+        })
+
+    }
+
+    const checkIfDrinkActive = (item) => {
+        return selectedDrinks
+            .some(selectedItem => selectedItem.item._id === item._id);
+    }
+
+    const handleChangeSelectedDrinkQuantity = (drinkId, newQuantity) => {
+        setSelectedDrinks(preVal => {
+            return preVal.map(selectedItem => {
+                if (selectedItem.item._id === drinkId) {
+                    return {
+                        ...selectedItem,
+                        quantity: newQuantity
+                    }
+                }
+                return selectedItem
+            })
+        })
+
+    }
+    
     const itemTypes = [
         {
             name: 'Foods',
@@ -109,13 +172,15 @@ export default function ({ selectedItems, setSelectedItems }) {
                             return (
                                 <Item
                                     key={index}
+                                    itemId={food._id}
                                     itemImage={food.image}
                                     itemName={food.name}
                                     itemDescription={food.description}
                                     itemPrice={food.price}
-                                    onClick={() => handleSelect(food)}
-                                    isActive={checkIfItemActive(food)}
-                                    handleUnselect={() => handleUnselect(food)}
+                                    onClick={() => handleSelectFood(food)}
+                                    isActive={checkIfFoodActive(food)}
+                                    handleUnselect={() => handleUnselectFood(food)}
+                                    handleChangeQuantity={handleChangeSelectedFoodQuantity}
                                 />
                             )
                         })
@@ -124,13 +189,15 @@ export default function ({ selectedItems, setSelectedItems }) {
                             return (
                                 <Item
                                     key={index}
+                                    itemId={drink._id}
                                     itemImage={drink.image}
                                     itemName={drink.name}
                                     itemDescription={drink.description}
                                     itemPrice={drink.price}
-                                    onClick={() => handleSelect(drink)}
-                                    isActive={checkIfItemActive(drink)}
-                                    handleUnselect={() => handleUnselect(drink)}
+                                    onClick={() => handleSelectDrink(drink)}
+                                    isActive={checkIfDrinkActive(drink)}
+                                    handleUnselect={() => handleUnselectDrink(drink)}
+                                    handleChangeQuantity={handleChangeSelectedDrinkQuantity}
 
                                 />
                             )

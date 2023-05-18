@@ -127,7 +127,7 @@ function App() {
             <Route path='/movies' element={<MovieViewAllPage />} />
             <Route path='/add-movie' element={<MovieCreatePage />} />
             <Route path='/movies/:id' element={<MovieViewDetailPage />} />
-            <Route path='/movie-scheduling' element={<MovieSchedule />} />
+            <Route path='/movie-scheduling/:id' element={<MovieSchedule />} />
 
             <Route path='/theater-rooms' element={<TheaterRoomViewAllPage />} />
             <Route path='/add-theater-room' element={<TheaterRoomCreatePage />} />

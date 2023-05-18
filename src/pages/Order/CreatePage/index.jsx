@@ -9,13 +9,15 @@ import SelectFoodDrink from './SelectFoodDrink';
 import ConfirmOrder from './ConfirmOrder';
 
 export default function () {
-    const [selectedMovieIndex, setSelectedMovieIndex] = useState(undefined)
+    const [selectedMovie, setSelectedMovie] = useState(undefined)
     const [selectedShowtime, setSelectedShowtime] = useState(undefined)
     const [selectedShowtimeSpot, setSelectedShowtimeSpot] = useState(undefined)
-    const [selectedItems, setSelectedItems] = useState([])
+    const [selectedTheaterRoom, setSelectedTheaterRoom] = useState(undefined)
+    const [selectedFoods, setSelectedFoods] = useState([])
+    const [selectedDrinks, setSelectedDrinks] = useState([])
+    const [selectedSeats, setSelectedSeats] = useState([])
 
 
-    const [selectSeats, setSelectedSeats] = useState([])
     const [message, setMessage] = useState()
     const [currentStep, setCurrentStep] = useState(1)
 
@@ -63,11 +65,11 @@ export default function () {
 
     const checkIfAbleToNextStep = () => {
         if (currentStep === 1) {
-            return selectedMovieIndex !== undefined;
+            return selectedMovie !== undefined;
         } else if (currentStep === 2) {
             return selectedShowtime !== undefined && selectedShowtimeSpot !== undefined
         } else if (currentStep === 3) {
-            return selectSeats.length > 0
+            return selectedSeats.length > 0
         } else if (currentStep === 4) {
             return true; // selecting foods and drinks is optional, staff can move the next step without selecting anything
         }
@@ -76,10 +78,6 @@ export default function () {
     const checkIfStepActive = (stepNum) => {
         return currentStep >= stepNum;
     }
-
-
-
-
 
     return (
         <div className='OrderCreatePage'>
@@ -141,13 +139,14 @@ export default function () {
 
             {currentStep == 1 &&
                 <SelectMovie
-                    setSelectedMovieIndex={setSelectedMovieIndex}
-                    selectedMovieIndex={selectedMovieIndex}
+                    setSelectedMovie={setSelectedMovie}
+                    selectedMovie={selectedMovie}
                 />
 
             }
             {currentStep == 2 &&
                 <SelectShowtime
+                    selectedMovie={selectedMovie}
                     selectedShowtime={selectedShowtime}
                     setSelectedShowtime={setSelectedShowtime}
                     selectedShowtimeSpot={selectedShowtimeSpot}
@@ -157,21 +156,35 @@ export default function () {
 
             {currentStep == 3 &&
                 <SelectSeat
-                    selectSeats={selectSeats}
+                    selectedMovie={selectedMovie}
+                    selectedShowtime={selectedShowtime}
+                    selectedShowtimeSpot={selectedShowtimeSpot}
+                    selectedSeats={selectedSeats}
                     setSelectedSeats={setSelectedSeats}
+                    selectedTheaterRoom={selectedTheaterRoom}
+                    setSelectedTheaterRoom={setSelectedTheaterRoom}
                 />
             }
 
             {currentStep == 4 &&
                 <SelectFoodDrink
-                    selectedItems={selectedItems}
-                    setSelectedItems={setSelectedItems}
+                    selectedFoods={selectedFoods}
+                    selectedDrinks={selectedDrinks}
+                    setSelectedDrinks={setSelectedDrinks}
+                    setSelectedFoods={setSelectedFoods}
                 />
             }
-
             {
                 currentStep == 5 &&
-                <ConfirmOrder />
+                <ConfirmOrder
+                        selectedMovie={selectedMovie}
+                        selectedShowtime={selectedShowtime}
+                        selectedShowtimeSpot={selectedShowtimeSpot}
+                        selectedFoods={selectedFoods}
+                        selectedDrinks={selectedDrinks}
+                        selectedSeats={selectedSeats}
+                        selectedTheaterRoom={selectedTheaterRoom}
+                />
             }
         </div>
     )

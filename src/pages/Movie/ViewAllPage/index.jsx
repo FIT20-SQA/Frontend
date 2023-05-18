@@ -42,7 +42,7 @@ export default function () {
                             posterLink={movie.poster}
                             movieTitle={movie.title}
                             releaseDate={movie.releaseDate}
-                            onClick={() => navigate(`/movies/1`)}
+                            onClick={() => navigate(`/movies/${movie._id}`)}
                         />
                     )
                 }

@@ -1,99 +1,134 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import UserContext from '../../context/UserContext';
+
 import './style.scss';
 import MovieDetail from '../../components/MovieDetail';
 import ThreaterRoom from '../../components/ThreaterRoom';
-import { useState } from 'react';
 import SeatChart from '../../components/SeatChart';
 import AddPriceRateButton from '../../components/AddPriceRateBtn'
 import { colors } from '../../utils/utils.js'
 import PriceRate from '../../components/PriceRate';
+import axios from 'axios';
 export default function () {
-    console.log('render');
-    const roomData = [
-        {
-            roomImage: 'https://images.unsplash.com/photo-1485095329183-d0797cdc5676?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-            roomName: 'Room C21',
-            rowNum: 12,
-            seatNumPerRow: 10,
-        },
-        {
-            roomImage: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-            roomName: 'Room C22',
-            rowNum: 13,
-            seatNumPerRow: 12,
-        },
-        {
-            roomImage: 'https://th.bing.com/th/id/R.84d573dc3c9aa435e95d46e946ac3eb8?rik=sVIy6D3SV4pZKg&pid=ImgRaw&r=0',
-            roomName: 'Room C23',
-            rowNum: 10,
-            seatNumPerRow: 18,
-        },
-        {
-            roomImage: 'https://images.unsplash.com/photo-1577382144834-8a80d92b925c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-            roomName: 'Room C24',
-            rowNum: 9,
-            seatNumPerRow: 11,
-        },
-        {
-            roomImage: 'https://plus.unsplash.com/premium_photo-1661762437859-c41fa943637c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-            roomName: 'Room C25',
-            rowNum: 14,
-            seatNumPerRow: 19,
-        },
-        {
-            roomImage: 'https://images.unsplash.com/photo-1596445836561-991bcd39a86d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-            roomName: 'Room C26',
-            rowNum: 8,
-            seatNumPerRow: 15,
-        }
-    ];
+
+    const pathname = window.location.pathname; // "/movies/125"
+    const parts = pathname.split('/'); // ["", "movie", "125"]
+    const movieId = parts[parts.length - 1]; // "125"
+    const [currentSelectedRoom, setCurrentSelectedRoom] = useState(null)
+    const [rooms, setRooms] = useState([])
+    const [priceRates, setPriceRates] = useState([]);
+    const [showAddPriceBtn, setShowAddPriceBtn] = useState(false)
+    const [rowColors, setRowColors] = useState([])
+    const [priceRateStartRow, setPriceRateStartRow] = useState(1)
+    const [selectedShowtimeDate, setSelectedShowtimeDate] = useState()
+    const [selectedShowtimeSpot, setSelectShowtimeSpot] = useState("10-12")
+    const { jwtToken } = useContext(UserContext)
 
     const setupDefaultRowColors = () => {
         const colorsArr = []
-        for (let i = 0; i < roomData[currentRoomIndex].rowNum; i++) {
-            colorsArr.push("#F8F6F4") // default color  
+        if (currentSelectedRoom) {
+            for (let i = 0; i < currentSelectedRoom.rowNum; i++) {
+                colorsArr.push("#F8F6F4") // default color  
+            }
         }
         return colorsArr
     }
 
-    const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
-    const handleClick = (index) => {
-        setCurrentRoomIndex(index);
+    useEffect(() => {
+        setRowColors(setupDefaultRowColors())
+    }, [])
+
+    const handleSelectRoom = (room) => {
+        setCurrentSelectedRoom(room)
     }
-    const [priceRates, setPriceRates] = useState([]);
-    const [showAddPriceBtn, setShowAddPriceBtn] = useState(false)
-    const [rowColors, setRowColors] = useState(() => setupDefaultRowColors())
-    const [priceRateLastRowNum, setPriceRateLastRowNum] = useState(1)
 
 
     useEffect(() => {
-        const colosArr = setupDefaultRowColors()
-        setRowColors(colosArr)
-    }, [currentRoomIndex])
+        const colorArr = setupDefaultRowColors()
+        setRowColors(colorArr)
+        setPriceRates([]) // when user select other room, the price rates set for the current room is reset
+        setPriceRateStartRow(1)
+    }, [currentSelectedRoom])
 
+
+    // re-colorize the seats in the seat chart after admin change the price rate array
     useEffect(() => {
-
-        // set the colors for rows based on the price rates
-        let currentRow = 0;
         const colorArr = []
-        for (let i = 0; i < priceRates.length; i++) {
-            const color = colors[i % colors.length]
-            for (let j = currentRow; j <= priceRates[i].toRow; j++) {
-                colorArr[j - 1] = color // index starts rrom 0, it first row is 1
-                currentRow ++
+
+        if (currentSelectedRoom) {
+            // set the colors for rows based on the price rates
+            let currentRow = 0;
+            for (let i = 0; i < priceRates.length; i++) {
+                const color = colors[i % colors.length]
+                for (let j = currentRow; j <= priceRates[i].toRow; j++) {
+                    colorArr[j - 1] = color // index starts rrom 0, it first row is 1
+                    currentRow++
+                }
             }
-        }
 
-        
-        // set the rest of the rows to default color
-        for (let i = currentRow; i <= roomData[currentRoomIndex].rowNum; i++) {
-            colorArr[i - 1] = "#F8F6F4" // index starts rrom 0, it first row is 1
-        }
-        
 
+            // set the rest of the rows to default color
+            for (let i = currentRow; i <= currentSelectedRoom.rowNum; i++) {
+                colorArr[i - 1] = "#F8F6F4" // index starts rrom 0, it first row is 1
+            }
+
+        }
         setRowColors(colorArr)
 
     }, [priceRates.length])
+
+
+    useEffect(() => {
+        console.log('selected showtimedate: ', selectedShowtimeDate);
+        console.log('selected showtimeSpot: ', selectedShowtimeSpot);
+
+        if (selectedShowtimeDate && selectedShowtimeSpot) {
+            fetchAvailableTheaterRoomsAtDateAndSpot()
+        }
+    }, [selectedShowtimeDate, selectedShowtimeSpot])
+
+    const fetchAvailableTheaterRoomsAtDateAndSpot = async () => {
+        const formattedShowtimeDate = formatShowtimeDate(selectedShowtimeDate);
+
+        console.log('showtimeDate: ');
+        console.log(selectedShowtimeDate);
+        console.log('showtimeDate: ');
+        console.log(selectedShowtimeSpot);
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+
+        };
+
+        const body = {
+            showtimeDate: formattedShowtimeDate,
+            showtimeSpot: selectedShowtimeSpot
+        }
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/theater-rooms-for-scheduling-movie`, body, config);
+
+        if (response.data.success) {
+            setRooms(response.data.data)
+            setCurrentSelectedRoom(response.data.data[0]) // the first room is set as the selected by default
+            console.log(response.data.data);
+        }
+    }
+
+    const formatShowtimeDate = (dateString) => {
+        const date = new Date(dateString);
+
+
+        const day = date.getDate();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1
+
+        if (month.toLocaleString().length == 1) {
+            return `${year}-0${month}-${day}`
+        }
+        return `${year}-${month}-${day}`
+    
+    }
 
     const addMorePriceRate = () => {
         setShowAddPriceBtn(true)
@@ -104,17 +139,18 @@ export default function () {
         const lastPriceRate = priceRates[priceRates.length - 1]
         setPriceRates(prevArr => prevArr.slice(0, prevArr.length - 1))
 
-        setPriceRateLastRowNum(lastPriceRate.fromRow) // the next price will the starts from the "from row" of the deleted price rate
+        setPriceRateStartRow(Number(lastPriceRate.fromRow)) // the next price will the starts from the "from row" of the deleted price rate
 
     }
 
     const handleAdd = (from, to, price) => {
         setPriceRates([...priceRates, {
-            fromRow: from,
-            toRow: to,
-            price: price,
+            fromRow: Number(from),
+            toRow: Number(to),
+            price: Number(price),
         }])
-        setPriceRateLastRowNum(Number(to) + 1)
+
+        setPriceRateStartRow(Number(to) + 1)
         setShowAddPriceBtn(false)
 
     }
@@ -124,22 +160,47 @@ export default function () {
     }
 
 
+    const handleSave = async () => {
+        console.log('priceRates: ', priceRates);
+        console.log('currentSelectedRoom: ', currentSelectedRoom);
+        console.log('selectedShowtimeDate: ', selectedShowtimeDate);
+        console.log('selectedShowtimeSpot: ', selectedShowtimeSpot);
+
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        };
+
+        const body = {
+            showtimeDate: selectedShowtimeDate,
+            showtimeSpot: selectedShowtimeSpot,
+            movieId: movieId,
+            theaterRoomId: currentSelectedRoom._id,
+            priceRates: priceRates
+        }
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/showtimes`, body, config);
+        console.log('response');
+    }
+
     return (
         <div className='MovieSchedulingPage'>
             <p className="page-name">Movie Scheduling</p>
 
             <MovieDetail
                 displayLargePoster={false}
+                movieId={movieId}
             />
 
-            <div className="picker-container">
+            <div className="date-picker-container">
                 <div className="showtime-picker">
                     <p className="text">Pick a date: </p>
-                    <input type="date" />
+                    <input type="date" value={selectedShowtimeDate} onChange={e => setSelectedShowtimeDate(e.target.value)} />
                 </div>
                 <div className="showtime-spot-picker">
                     <p className="text">Choose showtime spot: </p>
-                    <select name="" id="">
+                    <select name="" id="" value={selectedShowtimeSpot} onChange={e => setSelectShowtimeSpot(e.target.value)} >
                         <option value="10-12">10 AM - 12 AM</option>
                         <option value="12-14">12 AM - 14 AM</option>
                         <option value="14-16">14 AM - 16 AM</option>
@@ -152,69 +213,78 @@ export default function () {
 
             </div>
 
-            <div className="theater-room-picker">
-                <p className="text">Choose Theater room: </p>
-                <div className="theater-room-container">
-                    {roomData.map((room, index) => {
-                        return <ThreaterRoom
-                            roomName={room.roomName}
-                            roomImage={room.roomImage}
-                            active={currentRoomIndex == index}
-                            onClick={() => handleClick(index)}
-                        />
-                    })}
-                </div>
-            </div>
-
-
-            <div className="price-setter">
-                <div className="text">Set the pricing:</div>
-                <div className="setter">
-                    <div className="room-info">
-                        <h1 className="room-name">
-                            {roomData[currentRoomIndex].roomName}
-                        </h1>
-                        <p><span className="bold">Number of rows:</span> {roomData[currentRoomIndex].rowNum}</p>
-                        <p><span className="bold">Number of seats per row:</span> {roomData[currentRoomIndex].seatNumPerRow}</p>
-                        <p><span className="bold">Capacity:</span> {roomData[currentRoomIndex].rowNum * roomData[currentRoomIndex].seatNumPerRow}</p>
-
-
-                        <div className="price-rate-container">
-                            {priceRates.map((priceRate, index) => {
-                                return <PriceRate
-                                    color={colors[index % colors.length]}
-                                    deleteable={index == priceRates.length - 1} // user can only delete the last price in the list
-                                    onDelete={deleteLastPriceRate}
-                                    from={priceRate.fromRow}
-                                    to={priceRate.toRow}
-                                    price={priceRate.price}
-                                />
-                            })}
-                        </div>
-
-                        {
-                            showAddPriceBtn ?
-                                <AddPriceRateButton
-                                    handleAdd={handleAdd}
-                                    handleCancel={handleCancel}
-                                    min={priceRateLastRowNum}
-                                    max={roomData[currentRoomIndex].rowNum}
-                                    setPriceRateLastRowNum={setPriceRateLastRowNum} // the next price rate will start from the row at the position priceRateLastRowNum
-                                    color={colors[priceRates.length % colors.length]}
-                                />
-                                :
-                                <div className="add-price-rate-btn" onClick={addMorePriceRate}>
-                                    <p>Add price rate</p>
-                                </div>
-                        }
-
+            {rooms.length > 0 &&
+                <div className="theater-room-picker">
+                    <p className="text">Choose Theater room: </p>
+                    <div className="theater-room-container">
+                        {rooms.map((room, index) => {
+                            return <ThreaterRoom
+                                name={room.name}
+                                image={room.image}
+                                active={room._id == currentSelectedRoom._id}
+                                onClick={() => handleSelectRoom(room)}
+                            />
+                        })}
                     </div>
-                    <SeatChart
-                        seatNumPerRow={roomData[currentRoomIndex].seatNumPerRow}
-                        rowNum={roomData[currentRoomIndex].rowNum}
-                        rowColors={rowColors}
-                    />
                 </div>
+            }
+
+
+            {currentSelectedRoom &&
+                <div className="price-setter">
+                    <div className="text">Set the pricing:</div>
+                    <div className="setter">
+                        <div className="room-info">
+                            <h1 className="room-name">
+                                {currentSelectedRoom.roomName}
+                            </h1>
+                            <p><span className="bold">Number of rows:</span> {currentSelectedRoom.rowNum}</p>
+                            <p><span className="bold">Number of seats per row:</span> {currentSelectedRoom.seatNumPerRow}</p>
+                            <p><span className="bold">Capacity:</span> {currentSelectedRoom.rowNum * currentSelectedRoom.seatNumPerRow}</p>
+
+
+                            <div className="price-rate-container">
+                                {priceRates.map((priceRate, index) => {
+                                    return <PriceRate
+                                        color={colors[index % colors.length]}
+                                        deleteable={index == priceRates.length - 1} // user can only delete the last price in the list
+                                        onDelete={deleteLastPriceRate}
+                                        from={priceRate.fromRow}
+                                        to={priceRate.toRow}
+                                        price={priceRate.price}
+                                    />
+                                })}
+                            </div>
+
+                            {
+                                showAddPriceBtn ?
+                                    <AddPriceRateButton
+                                        handleAdd={handleAdd}
+                                        handleCancel={handleCancel}
+                                        min={priceRateStartRow}
+                                        max={currentSelectedRoom.rowNum}
+                                        setPriceRateLastRowNum={setPriceRateStartRow} // the next price rate will start from the row at the position priceRateLastRowNum
+                                        color={colors[priceRates.length % colors.length]}
+                                    />
+                                    :
+                                    <div className="add-price-rate-btn" onClick={addMorePriceRate}>
+                                        <p>Add price rate</p>
+                                    </div>
+                            }
+
+                        </div>
+                        <SeatChart
+                            seatNumPerRow={currentSelectedRoom.seatNumPerRow}
+                            rowNum={currentSelectedRoom.rowNum}
+                            rowColors={rowColors}
+                        />
+                    </div>
+
+                </div>
+            }
+
+            <div className="btn-container">
+                <p className="gradient-btn save-btn" onClick={handleSave}>Save</p>
 
             </div>
         </div>

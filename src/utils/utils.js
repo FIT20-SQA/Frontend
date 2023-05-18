@@ -49,3 +49,9 @@ export const uploadFileToCloudinary = async (file) => {
 
     return null;
 };
+
+export const formatDate = (releaseDate) => {
+    const date = new Date(releaseDate);
+    const formattedDate = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(date);
+    return formattedDate;
+}

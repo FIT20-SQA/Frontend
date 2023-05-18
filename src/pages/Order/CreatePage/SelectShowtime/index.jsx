@@ -3,7 +3,7 @@ import './style.scss';
 
 import MovieDetail from '../../../../components/MovieDetail';
 import MovieShowtimeDetails from '../../../../components/MovieShowtimeDetails';
-export default function ({ selectedShowtime, setSelectedShowtime, selectedShowtimeSpot, setSelectedShowtimeSpot }) {
+export default function ({selectedMovie, selectedShowtime, setSelectedShowtime, selectedShowtimeSpot, setSelectedShowtimeSpot }) {
 
 
 
@@ -37,9 +37,11 @@ export default function ({ selectedShowtime, setSelectedShowtime, selectedShowti
             <div className="movie-detail">
                 <MovieDetail
                     displayLargePoster={false}
+                    movieId={selectedMovie._id}
                 />
 
                 <MovieShowtimeDetails 
+                    movieId={selectedMovie._id}
                     selectedShowtime={selectedShowtime}
                     selectedShowtimeSpot={selectedShowtimeSpot}
                     handleClickShowtimeDate={handleClickShowtimeDate}

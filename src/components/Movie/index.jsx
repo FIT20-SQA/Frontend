@@ -1,11 +1,10 @@
 import React from 'react';
 import './style.scss';
-import { truncateString } from '../../utils/utils';
+import { formatDate, truncateString } from '../../utils/utils';
 
 export default function ({ posterLink , movieTitle, releaseDate, onClick, isActive, blur }) {
 
-    const date = new Date(releaseDate);
-    const formattedDate = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(date);
+    const formattedDate = formatDate(releaseDate)
     
     let style = isActive ? 'movie-active' : ''
     if (blur) {

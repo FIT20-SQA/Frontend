@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { truncateString } from '../../utils/utils';
 //TODO: isActive => isSelected
-export default function ({ itemImage, itemName, itemDescription, itemPrice, onClick, isActive, handleUnselect }) {
+export default function ({ itemId,itemImage, itemName, itemDescription, itemPrice, onClick, isActive, handleUnselect , handleChangeQuantity}) {
 
 
     const [quantity, setQuantity] = useState(1)
     const handleAdd = () => {
         setQuantity(prevVal => prevVal + 1)
+        handleChangeQuantity(itemId, quantity + 1)
     }
 
     useEffect(() => {
@@ -23,6 +24,7 @@ export default function ({ itemImage, itemName, itemDescription, itemPrice, onCl
         }
 
         setQuantity(prevVal => prevVal - 1)
+        handleChangeQuantity(itemId, quantity - 1)
         // handleClickUnselect(e)
 
 

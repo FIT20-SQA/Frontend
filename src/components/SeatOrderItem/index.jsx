@@ -1,12 +1,12 @@
 import React from 'react';
 import './style.scss';
 
-export default function ({}) {
+export default function ({row, col, price, theaterRoomName}) {
     return (
         <div className="SeatOrderItem">
-            <p className="seatCode">R12.15</p>
-            <p className="theaterRoomName">C21</p>
-            <p className="price">$12.5</p>
+            <p className="seatCode">R{row + 1}.{col+1}</p>
+            <p className="theaterRoomName">{theaterRoomName}</p>
+            <p className="price">${price}</p>
         </div>
     )
 }

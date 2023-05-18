@@ -26,8 +26,8 @@ export default function () {
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, body, {})
         if (response.data.success) {
             localStorage.setItem('token', response.data.token)
-            navigate('/')
             setJwtToken(response.data.token)
+            navigate('/')
         }
 
     }

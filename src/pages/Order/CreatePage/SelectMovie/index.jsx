@@ -6,7 +6,7 @@ import UserContext from '../../../../context/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function ({ selectedMovieIndex, setSelectedMovieIndex }) {
+export default function ({ selectedMovie, setSelectedMovie }) {
     const [movies, setMovies] = useState([]);
     const { jwtToken } = useContext(UserContext)
 
@@ -27,20 +27,12 @@ export default function ({ selectedMovieIndex, setSelectedMovieIndex }) {
     }
     const navigate = useNavigate()
 
-    const checkIMovieActive = (index) => {
-        return selectedMovieIndex === index
+    const handleClickMovie = (movie) => {
+        setSelectedMovie(movie)
     }
 
-    const handleClickMovie = (index) => {
-        if (selectedMovieIndex !== index) {
-            setSelectedMovieIndex(index);
-        } else {
-            setSelectedMovieIndex(undefined);
-        }
-    }
-
-    const checkIfBlur = (index) => {
-        if (selectedMovieIndex !== undefined && selectedMovieIndex !== index) {
+    const checkIfBlur = (movie) => {
+        if (selectedMovie !== undefined && selectedMovie._id !== movie._id) {
             return true;
         } else {
             return false;
@@ -57,8 +49,8 @@ export default function ({ selectedMovieIndex, setSelectedMovieIndex }) {
                             posterLink={movie.poster}
                             movieTitle={movie.title}
                             releaseDate={movie.releaseDate}
-                            isActive={checkIMovieActive(index)}
-                            onClick={() => handleClickMovie(index)}
+                            isActive={movie._id == selectedMovie?._id}
+                            onClick={() => handleClickMovie(movie)}
                             blur={checkIfBlur(index)}
                         />
                     )

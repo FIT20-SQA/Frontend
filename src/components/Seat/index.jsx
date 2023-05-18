@@ -3,8 +3,6 @@ import './style.scss';
 
 export default function ({row, col, onClick, color}) {
     const colorStyle = {backgroundColor: color}
-    console.log('color');
-    console.log(color);
     if (!color) {
         colorStyle.backgroundColor = 'var(--primary-color)'
     }

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import UserContext from '../../../context/UserContext';
+import axios from 'axios';
+import { uploadFileToCloudinary } from '../../../utils/utils';
+
 import './style.scss';
-import { useState } from 'react';
 import SeatChart from '../../../components/SeatChart';
 export default function () {
     const [roomName, setRoomName] = useState()
@@ -8,8 +11,9 @@ export default function () {
     const [seatNumPerRow, setSeatNumPerRow] = useState(0)
     const [file, setFile] = useState();
     const [isDragOver, setIsDragOver] = useState(false);
-    console.log("rowNum: ", rowNum);
-    console.log("seatNumPerRow: ", seatNumPerRow);
+
+    const { jwtToken } = useContext(UserContext)
+
 
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -39,7 +43,27 @@ export default function () {
         setFile(e.target.files[0]);
     };
 
+    const handleSave = async () => {
+        let image = null;
+        if (file) {
+            image = await uploadFileToCloudinary(file)
+        }
 
+
+        const body = {
+            rowNum: rowNum,
+            seatNumPerRow: seatNumPerRow,
+            name: roomName,
+            image: image
+        }
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        };
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/theater-rooms`, body,  config);
+        console.log(response);
+    }
     return (
         <div className='TheaterRoomCreatePage'>
             <div className="page-content">
@@ -126,7 +150,7 @@ export default function () {
             </div>
 
             <div className="button-container">
-                <div className="gradient-btn">Save</div>
+                <div className="gradient-btn" onClick={handleSave}>Save</div>
             </div>
         </div>
 

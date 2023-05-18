@@ -7,7 +7,7 @@ export default function ({ theaterRoom }) {
         <div className="room-detail">
             <div className="room-info">
                 <h1 className="room-name">
-                    {theaterRoom.roomName}
+                    {theaterRoom.name}
                 </h1>
                 <p><span className="bold">Number of rows:</span> {theaterRoom.rowNum}</p>
                 <p><span className="bold">Number of seats per row:</span> {theaterRoom.seatNumPerRow}</p>

@@ -1,11 +1,16 @@
 .MovieSchedulingPage {
     padding: 10px 30px;
 
-    .text {
+    .text,
+    .page-name {
         font-family: 'Titillium Web', sans-serif;
         font-weight: 500;
         font-size: 30px;
         margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .page-name {
         text-align: center;
     }
 

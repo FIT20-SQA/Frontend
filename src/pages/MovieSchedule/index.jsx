@@ -126,7 +126,7 @@ export default function () {
 
     return (
         <div className='MovieSchedulingPage'>
-            <p className="text">Movie Scheduling</p>
+            <p className="page-name">Movie Scheduling</p>
 
             <MovieDetail
                 displayLargePoster={false}

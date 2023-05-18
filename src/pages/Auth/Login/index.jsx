@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
+import UserContext from '../../../context/UserContext';
+
 import './style.scss';
 
 import AppLogo from '../../../images/logo.png'
 import axios from 'axios';
-import UserContext from '../../../context/UserContext';
+
 import { useNavigate } from 'react-router-dom';
 export default function () {
     const [email, setEmail] = useState()

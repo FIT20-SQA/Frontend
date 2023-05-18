@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import UserContext from '../../../context/UserContext';
+
 import './style.scss';
-import { useState } from 'react';
 import { useRef } from 'react';
 import Genre from '../../../components/Genre';
 import PersonName from '../../../components/PersonName';
+import axios from 'axios';
+import { uploadFileToCloudinary } from '../../../utils/utils';
+
 export default function () {
+    const { user, setUser, jwtToken, setJwtToken } = useContext(UserContext)
 
     const [isDragOver, setIsDragOver] = useState(false);
     const [file, setFile] = useState();
@@ -73,6 +78,36 @@ export default function () {
             setDirectors([...directors, directorInput])
             setDirectorInput('')
         }
+    }
+
+
+
+    const handleSave = async () => {
+        //TODO: tas
+        let poster = null;
+        if (file) {
+            poster = await uploadFileToCloudinary(file)
+        }
+
+
+        const body = {
+            title: movieTitleInput,
+            description: descriptionInput,
+            releaseDate: releaseDateInput,
+            duration: durationInput,
+            country: countryInput,
+            genre: genres,
+            actors: actors,
+            directors: directors,
+            poster: poster
+        }
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        };
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/movies`, body,  config);
+        console.log(response);
     }
 
     return (
@@ -234,7 +269,7 @@ export default function () {
             </div>
 
             <div className="btn-container">
-                <p className="gradient-btn save-btn">Save</p>
+                <p className="gradient-btn save-btn" onClick={handleSave}>Save</p>
 
             </div>
         </div>

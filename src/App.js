@@ -27,9 +27,22 @@ import UserContext from "./context/UserContext";
 import axios from "axios";
 import "./App.scss";
 import { useEffect, useState } from "react";
+import ChangePassword from "./pages/Auth/ChangePassword";
 //TODO: create a context to store information about user including: name, avatar and role?
 //TODO: refactor itemImage -> image
 function App() {
+  const getTokenFromLocalStorage = () => {
+    if (localStorage.hasOwnProperty('token')) {
+      const token = localStorage.getItem("token")
+      if (token) {
+        return token;
+      }
+
+    }
+    return null
+  }
+
+  const [jwtToken, setJwtToken] = useState(getTokenFromLocalStorage())
   const fetchUserInfo = async () => {
     let user
 
@@ -57,27 +70,16 @@ function App() {
 
     setUser(user)
     // this is for the userEffect that auto redirect user
-    if (!isFetchUserinfoComplete) {
-      setIsFirstLoadComplete(true)
+    if (!isFetchUserInfoComplete) {
+      setIsFetchuserInfoComplete(true)
     }
 
   };
 
-  const getTokenFromLocalStorage = () => {
-    if (localStorage.hasOwnProperty('token')) {
-      const token = localStorage.getItem("token")
-      if (token) {
-        return token;
-      }
-
-    }
-    return null
-  }
-
-  const [user, setUser] = useState(fetchUserInfo());
-  const [jwtToken, setJwtToken] = useState(getTokenFromLocalStorage())
+  
+  const [user, setUser] = useState(() => fetchUserInfo());
   const [pathname, setPathname] = useState(window.location.pathname)
-  const [isFetchUserinfoComplete, setIsFirstLoadComplete] = useState(false);
+  const [isFetchUserInfoComplete, setIsFetchuserInfoComplete] = useState(false);
 
   const navigate = useNavigate()
 
@@ -88,19 +90,17 @@ function App() {
 
   useEffect(() => {
     fetchUserInfo()
+    console.log('ihi');
   }, [jwtToken])
 
 
   //TODO: after fetch user run this code, write a method and loading animation for this
   // auto redirect based on the user login status
   useEffect(() => {
-    console.log("auto redirect based on the user login status");
-    console.log(isFetchUserinfoComplete);
-    console.log(jwtToken);
-    console.log(pathname);
+    
     // Redirect unauthenticated users to the login page
     // if the user is not authenticated after fetching userinfor with the jwttoken in the localstorage
-    if (isFetchUserinfoComplete && !user  && !pathname.startsWith('/login')) {
+    if (isFetchUserInfoComplete && !user  && !pathname.startsWith('/login')) {
       console.log('hey');
       navigate('/login')
     } else if (jwtToken) {
@@ -110,13 +110,8 @@ function App() {
       }
     }
 
-  }, [user, pathname, jwtToken, isFetchUserinfoComplete])
+  }, [user, jwtToken, pathname, isFetchUserInfoComplete])
 
-
-  console.log("User");
-  console.log(user);
-  console.log("jwtToken");
-  console.log(jwtToken);
 
   return (
     <UserContext.Provider value={{ user, setUser, jwtToken, setJwtToken }}>
@@ -126,7 +121,9 @@ function App() {
           <Routes>
 
             <Route path="/" element={<Homapage />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/login" element={<Login />} />
+
             <Route path='/movies' element={<MovieViewAllPage />} />
             <Route path='/add-movie' element={<MovieCreatePage />} />
             <Route path='/movies/:id' element={<MovieViewDetailPage />} />

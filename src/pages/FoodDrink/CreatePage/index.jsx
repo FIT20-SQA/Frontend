@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import UserContext from '../../../context/UserContext';
+import { uploadFileToCloudinary } from '../../../utils/utils';
+import axios from 'axios';
+
 import './style.scss';
 //TODO: dropzone item?
 export default function () {
+    const { jwtToken } = useContext(UserContext)
+
     const [itemName, setItemName] = useState()
     const [itemPrice, setItemPrice] = useState(0)
     const [itemDescription, setItemDescription] = useState()
-    const [itemType, setItemType] = useState("food")
+    const [itemType, setItemType] = useState("foods")
 
     const [file, setFile] = useState();
     const [isDragOver, setIsDragOver] = useState(false);
@@ -37,6 +43,30 @@ export default function () {
         console.log(e.target.files[0]);
         setFile(e.target.files[0]);
     };
+
+
+    const handleSave = async () => {
+        //TODO: tas
+        let imageLink = null;
+        if (file) {
+            imageLink = await uploadFileToCloudinary(file)
+        }
+
+        const body = {
+            name: itemName,
+            description: itemDescription,
+            price: itemPrice,
+            image: imageLink
+        }
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        };
+
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/${itemType}`, body, config);
+        console.log(response);
+    }
     return (
         <div className='FoodDrinkAddPage'>
             <div className="text">Add Food/Drink</div>
@@ -85,7 +115,7 @@ export default function () {
                         }
                     </div>
                 </div>
-                    
+
 
                 <div className="right">
                     <div className="item name">
@@ -110,18 +140,23 @@ export default function () {
                         <textarea type="number"
                             placeholder='Enter item description'
                             value={itemDescription}
-                            onChange={(e) => setItemPrice(e.target.value)}
+                            onChange={(e) => setItemDescription(e.target.value)}
                         />
                     </div>
 
                     <div className="item type">
                         <p className="item-text">Item type: </p>
                         <select name="" id="" value={itemType} onChange={e => setItemType(e.target.value)}>
-                            <option value="food">Food</option>
-                            <option value="drink">Drink</option>
+                            <option value="foods">Food</option>
+                            <option value="drinks">Drink</option>
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div className="btn-container">
+                <p className="gradient-btn save-btn" onClick={handleSave}>Save</p>
+
             </div>
         </div>
     )
